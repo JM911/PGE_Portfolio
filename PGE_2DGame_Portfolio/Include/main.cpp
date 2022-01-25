@@ -4,7 +4,7 @@
 int main()
 {
 	Core demo;
-	if (demo.Construct(1280, 720, 1, 1))
+	if (demo.Construct(640, 360, 2, 2))
 		demo.Start();
 	return 0;
 }

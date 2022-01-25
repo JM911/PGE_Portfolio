@@ -25,6 +25,7 @@ bool Core::OnUserUpdate(float fElapsedTime)
 		return false;
 
 	_pScene->Update(this);
+	_pScene->Render(this);
 
 	return true;
 }

@@ -8,4 +8,5 @@ public:
 
 public:
 	virtual void Update(class Core* pEngine) = 0;
+	virtual void Render(class Core* pEngine) = 0;
 };

@@ -9,3 +9,11 @@ enum class TILE_TYPE
 
 	END,
 };
+
+enum class DIRECTION
+{
+	RIGHT,
+	DOWN,
+	LEFT,
+	UP,
+};

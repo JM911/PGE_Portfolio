@@ -1,4 +1,5 @@
 #pragma once
+#include "../pch.h"
 
 class Core;
 
@@ -14,17 +15,20 @@ public:
 
 
 protected:
-	int _x = 0;
-	int _y = 0;
+	float _x = 0.f;
+	float _y = 0.f;
+	olc::Pixel _color = olc::BLACK;
 
 	// Get
 public:
-	int GetX() const { return _x; }
-	int GetY() const { return _y; }
+	float GetX() const { return _x; }
+	float GetY() const { return _y; }
+	olc::Pixel GetColor() const { return _color; }
 
 	// Set
 public:
-	void SetX(int x) { _x = x; }
-	void SetY(int y) { _y = y; }
+	void SetX(float x) { _x = x; }
+	void SetY(float y) { _y = y; }
+	void SetColor(olc::Pixel color) { _color = color; }
 };
 

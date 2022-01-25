@@ -1,8 +1,5 @@
 #pragma once
 #include "Obj.h"
-#include "../pch.h"
-
-class Core;
 
 class Tile :
     public Obj
@@ -15,9 +12,13 @@ public:
     void Update(Core* pEngine) override;
     void Render(Core* pEngine) override;
 
+
+
+
 private:
     TILE_TYPE _type = TILE_TYPE::NONE;
     int _size = 0;
+    //olc::Pixel _color = olc::BLACK;
 
     // Get
 public:

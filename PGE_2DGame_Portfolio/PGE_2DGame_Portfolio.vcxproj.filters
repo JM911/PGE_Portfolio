@@ -30,6 +30,9 @@
     <Filter Include="소스 파일\Object\Enemy">
       <UniqueIdentifier>{3c554243-79c7-4702-9320-74eabdc904b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Object\Bullet">
+      <UniqueIdentifier>{55ff64ab-ea80-4653-8a55-e2aacc97f9cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\olcPixelGameEngine.h">
@@ -56,6 +59,15 @@
     <ClInclude Include="Include\Flag.h">
       <Filter>소스 파일\Etc</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Object\Map.h">
+      <Filter>소스 파일\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Object\Tower.h">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Object\Enemy.h">
+      <Filter>소스 파일\Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\main.cpp">
@@ -76,5 +88,19 @@
     <ClCompile Include="Include\Object\Tile.cpp">
       <Filter>소스 파일\Object\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Include\Object\Map.cpp">
+      <Filter>소스 파일\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\Tower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\Enemy.cpp">
+      <Filter>소스 파일\Object\Enemy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="memo.txt">
+      <Filter>소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>
