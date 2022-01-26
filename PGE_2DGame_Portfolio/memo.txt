@@ -6,6 +6,16 @@
 
 적
 - 남은 HP 보이도록 Render에 작업
+- 최종 목표지점을 멤버변수로 가지고 도달하면 플레이어 HP 감소(함수 호출?)
+
+총알
+- 일반적인 경우 사이즈가 0이면 점으로 표현, 양수면 원으로 표현
+
+타워
+- enum class 타워타입 만들기 => 생성자가 _color 바꾸도록 만들고 하위 Tower 클래스들의 생성자에서 호출
 
 그외
 - Delete 함수 Scene에 inline으로 제작, 리팩토링
+- Tower가 Bullet 포인터 변수를 가지고 Target으로 Enemy 변수 가지기
+  => Tower Update에서 충돌판정 및 충돌 시 Enemy의 체력 닳는 함수 호출
+- Wave 클래스를 만들까? 고민중

@@ -68,6 +68,9 @@
     <ClInclude Include="Include\Object\Enemy.h">
       <Filter>소스 파일\Object\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Object\Bullet.h">
+      <Filter>소스 파일\Object\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\main.cpp">
@@ -96,6 +99,9 @@
     </ClCompile>
     <ClCompile Include="Include\Object\Enemy.cpp">
       <Filter>소스 파일\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\Bullet.cpp">
+      <Filter>소스 파일\Object\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

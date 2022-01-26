@@ -90,8 +90,37 @@ void TestScene::Update(Core* pEngine)
 		}
 	}
 
-	// enemy update
+	// test (tower -> target) 설정
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		for (int j = 0; j < MAP_WIDTH; j++)
+		{
+			// 실제로는 여기에 for문을 한개 더 넣어서 모든 enemy 탐색
+
+			if (!_pTower[i][j])
+				continue;
+
+			// 이미 설정한 타겟이 범위안에 있으면 넘어감
+			if (_pTower[i][j]->GetTarget() && _pTower[i][j]->CheckTargetInRange())
+				continue;
+
+			float x = _pTower[i][j]->GetX() - _pTestEnemy->GetX();
+			float y = _pTower[i][j]->GetY() - _pTestEnemy->GetY();
+			float dist = sqrtf(x * x + y * y);
+
+			if (_pTower[i][j]->GetRange() > dist)
+				_pTower[i][j]->SetTarget(_pTestEnemy);
+		}
+	}
+	
+
+
+	// enemy update => for문으로 변경
 	_pTestEnemy->Update(pEngine);
+	_pTestEnemy->ChangeDirAt(10, 1, DIRECTION::DOWN);
+	_pTestEnemy->ChangeDirAt(10, 4, DIRECTION::LEFT);
+	_pTestEnemy->ChangeDirAt(1, 4, DIRECTION::DOWN);
+	_pTestEnemy->ChangeDirAt(1, 7, DIRECTION::RIGHT);
 }
 
 void TestScene::Render(Core* pEngine)
@@ -102,6 +131,9 @@ void TestScene::Render(Core* pEngine)
 	// Test
 	_pTestMap->Render(pEngine);
 	pEngine->DrawCircle(_curX, _curY, 10);
+
+
+	_pTestEnemy->Render(pEngine);
 
 	for (int i = 0; i < MAP_HEIGHT; i++)
 	{
@@ -114,5 +146,4 @@ void TestScene::Render(Core* pEngine)
 		}
 	}
 
-	_pTestEnemy->Render(pEngine);
 }
