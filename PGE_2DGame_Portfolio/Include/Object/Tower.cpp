@@ -3,13 +3,9 @@
 #include "Bullet.h"
 #include "Enemy.h"
 
-Tower::Tower(int gridX, int gridY)	:
-	_gridX(gridX), _gridY(gridY)
+Tower::Tower(Core* pEngine)	:
+	Obj(pEngine)
 {
-	// 원모양 타워의 중심으로 세팅
-	_x = float(MAP_POS_X + TILE_SIZE * _gridX + TILE_SIZE / 2);
-	_y = float(MAP_POS_Y + TILE_SIZE * _gridY + TILE_SIZE / 2);
-
 	// test
 	_range = 60.f;
 	_interval = 2.f;
@@ -17,44 +13,58 @@ Tower::Tower(int gridX, int gridY)	:
 
 Tower::~Tower()
 {
+	SAFE_DELETE(_pBullet);
 }
 
-void Tower::Update(Core* pEngine)
+void Tower::Create(int gridX, int gridY)
+{
+	// 원모양 타워의 중심으로 세팅
+	_gridX = gridX;
+	_gridY = gridY;
+
+	_x = float(MAP_POS_X + TILE_SIZE * _gridX + TILE_SIZE / 2);
+	_y = float(MAP_POS_Y + TILE_SIZE * _gridY + TILE_SIZE / 2);
+
+	_enable = true;
+}
+
+void Tower::Update()
 {
 	if (!_enable)
 		return;
 	
-	TimeTickInc(pEngine);
+	TimeTickInc();
 	Attack();
 	
+	// 총알 생사 체크
 	if (_pBullet && !(_pBullet->GetEnable()))
-		ReleaseBullet();
+		SAFE_DELETE(_pBullet);
 
 	// bullet Update
 	if(_pBullet)
-		_pBullet->Update(pEngine);
+		_pBullet->Update();
 }
 
-void Tower::Render(Core* pEngine)
+void Tower::Render()
 {
 	if (!_enable)
 		return;
 
-	pEngine->FillCircle((int)_x, (int)_y, TOWER_SIZE);
+	_pEngine->FillCircle((int)_x, (int)_y, TOWER_SIZE);
 
 
 	// bullet Render
 	if (_pBullet)
-		_pBullet->Render(pEngine);
+		_pBullet->Render();
 }
 
-void Tower::TimeTickInc(Core* pEngine)
+void Tower::TimeTickInc()
 {
 	// 너무 커지면 증가 안하도록
 	if (_timeTick > 10000.f)
 		return;
 
-	_timeTick += pEngine->GetElapsedTime();
+	_timeTick += _pEngine->GetElapsedTime();
 }
 
 void Tower::CreateBullet()
@@ -62,21 +72,8 @@ void Tower::CreateBullet()
 	if (_pBullet || !_pTarget)
 		return;
 
-	_pBullet = new Bullet;
-	_pBullet->SetX(_x);
-	_pBullet->SetY(_y);
-	_pBullet->SetSize(2);
-	_pBullet->SetEnable(true);
-	_pBullet->SetTarget(_pTarget);
-}
-
-void Tower::ReleaseBullet()
-{
-	if (!_pBullet)
-		return;
-
-	delete _pBullet;
-	_pBullet = nullptr;
+	_pBullet = new Bullet(_pEngine);
+	_pBullet->Create(_x, _y, 2, _pTarget);
 }
 
 bool Tower::CheckTargetInRange()

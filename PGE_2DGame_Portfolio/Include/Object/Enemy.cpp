@@ -2,30 +2,44 @@
 #include "../Core.h"
 #include "Bullet.h"
 
-Enemy::Enemy()
+Enemy::Enemy(Core* pEngine)	:
+	Obj(pEngine)
 {
-	// test
-	_genGridX = 1;
-	_genGridY = 1;
-	_HP = 5;
-	_size = 5;
-	_color = olc::RED;
-	_speed = 30;
+	//// test
+	//_genGridX = 1;
+	//_genGridY = 1;
+	//_HP = 5;
+	//_size = 5;
+	//_color = olc::RED;
+	//_speed = 30.f;
 
-	//_alive = true;
-	_HP = 10;
-	_ATT = 1;
+	//_HP = 10;
+	//_ATT = 1;
 
 	// 
-	_x = float(MAP_POS_X + TILE_SIZE * _genGridX + TILE_SIZE / 2);
-	_y = float(MAP_POS_Y + TILE_SIZE * _genGridY + TILE_SIZE / 2);
 }
 
 Enemy::~Enemy()
 {
 }
 
-void Enemy::Update(Core* pEngine)
+void Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float speed, olc::Pixel color)
+{
+	_genGridX = genGridX;
+	_genGridY = genGridY;
+	_size = size;
+
+	_HP = hp;
+	_ATT = att;
+	_speed = speed;
+	_color = color;
+
+	_alive = true;
+	_x = float(MAP_POS_X + TILE_SIZE * _genGridX + TILE_SIZE / 2);
+	_y = float(MAP_POS_Y + TILE_SIZE * _genGridY + TILE_SIZE / 2);
+}
+
+void Enemy::Update()
 {
 	if (!_alive)
 		return;
@@ -33,32 +47,34 @@ void Enemy::Update(Core* pEngine)
 	if (_HP <= 0)
 		_alive = false;
 
+	float fElapsedTime = _pEngine->GetElapsedTime();
+
 	switch (_dir)
 	{
 	case DIRECTION::RIGHT:
-		_x += _speed * pEngine->GetElapsedTime();
+		_x += _speed * fElapsedTime;
 		break;
 	case DIRECTION::DOWN:
-		_y += _speed * pEngine->GetElapsedTime();
+		_y += _speed * fElapsedTime;
 		break;
 	case DIRECTION::LEFT:
-		_x -= _speed * pEngine->GetElapsedTime();
+		_x -= _speed * fElapsedTime;
 		break;
 	case DIRECTION::UP:
-		_y -= _speed * pEngine->GetElapsedTime();
+		_y -= _speed * fElapsedTime;
 		break;
 	}
 }
 
-void Enemy::Render(Core* pEngine)
+void Enemy::Render()
 {
 	if (!_alive)
 		return;
 
-	pEngine->FillCircle((int)_x, (int)_y, _size, _color);
+	_pEngine->FillCircle((int)_x, (int)_y, _size, _color);
 
 	string tmp = to_string(_HP);
-	pEngine->DrawString((int)_x, (int)_y, tmp);
+	_pEngine->DrawString((int)_x, (int)_y, tmp);
 }
 
 void Enemy::ChangeDirAt(int gridX, int gridY, DIRECTION dir)

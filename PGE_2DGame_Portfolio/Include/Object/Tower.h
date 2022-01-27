@@ -8,12 +8,13 @@ class Tower :
     public Obj
 {
 public:
-    Tower(int gridX, int gridY);
+    Tower(Core* pEngine);
     virtual ~Tower();
 
 public:
-    virtual void Update(Core* pEngine) override;
-    virtual void Render(Core* pEngine) override;
+    void Create(int gridX, int gridY);
+    virtual void Update() override;
+    virtual void Render() override;
 
 
 
@@ -64,9 +65,8 @@ public:
     void SetInterval(float interval) { _interval = interval; }
 
 public:
-    void TimeTickInc(Core* pEngine);
+    void TimeTickInc();
     void CreateBullet();
-    void ReleaseBullet();
 
     bool CheckTargetInRange();
     void Attack();

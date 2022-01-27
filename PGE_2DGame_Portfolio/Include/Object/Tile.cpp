@@ -1,7 +1,8 @@
 #include "Tile.h"
 #include "../Core.h"
 
-Tile::Tile()
+Tile::Tile(Core* pEngine)	:
+	Obj(pEngine)
 {
 }
 
@@ -9,7 +10,32 @@ Tile::~Tile()
 {
 }
 
-void Tile::Update(Core* pEngine)
+void Tile::Create(float offsetX, float offsetY, int gridX, int gridY, int size)
+{
+	_offsetX = offsetX;
+	_offsetY = offsetY;
+	_gridX = gridX;
+	_gridY = gridY;
+	_size = size;
+
+	_x = _offsetX + (float)(_gridX * _size);
+	_y = _offsetY + (float)(_gridY * _size);
+
+	//_type = type;
+	//TileColorUpdate();
+}
+
+void Tile::Update()
+{
+}
+
+void Tile::Render()
+{
+	_pEngine->FillRect((int)_x, (int)_y, _size, _size, _color);
+	_pEngine->DrawRect((int)_x, (int)_y, _size, _size, olc::BLACK);
+}
+
+void Tile::TileColorUpdate()
 {
 	switch (_type)
 	{
@@ -26,10 +52,4 @@ void Tile::Update(Core* pEngine)
 		_color = olc::DARK_RED;
 		break;
 	}
-}
-
-void Tile::Render(Core* pEngine)
-{
-	pEngine->FillRect((int)_x, (int)_y, _size, _size, _color);
-	pEngine->DrawRect((int)_x, (int)_y, _size, _size, olc::BLACK);
 }

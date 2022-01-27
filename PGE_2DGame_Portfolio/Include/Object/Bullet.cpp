@@ -2,7 +2,8 @@
 #include "../Core.h"
 #include "Enemy.h"
 
-Bullet::Bullet()
+Bullet::Bullet(Core* pEngine)	:
+	Obj(pEngine)
 {
 	_speed = 100.f;
 	_ATT = 1;
@@ -12,10 +13,22 @@ Bullet::~Bullet()
 {
 }
 
-void Bullet::Update(Core* pEngine)
+void Bullet::Create(float x, float y, int size, Enemy* pTarget)
+{
+	_x = x;
+	_y = y;
+	_size = size;
+
+	_pTarget = pTarget;
+	_enable = true;
+}
+
+void Bullet::Update()
 {
 	if (!_pTarget || !_enable)
 		return;
+
+	float fElapsedTime = _pEngine->GetElapsedTime();
 
 	_dirX = _pTarget->GetX() - _x;
 	_dirY = _pTarget->GetY() - _y;
@@ -25,7 +38,6 @@ void Bullet::Update(Core* pEngine)
 	float eps = 0.1f;
 	if (dist < eps)
 	{
-		// TODO: 타겟의 HP 깎이는 함수 구현 후 호출
 		_pTarget->BeDamaged(_ATT);
 		_enable = false;
 	}
@@ -35,18 +47,18 @@ void Bullet::Update(Core* pEngine)
 	_dirY /= dist;
 
 	// Move
-	_x += _speed * pEngine->GetElapsedTime() * _dirX;
-	_y += _speed * pEngine->GetElapsedTime() * _dirY;
+	_x += _speed * fElapsedTime * _dirX;
+	_y += _speed * fElapsedTime * _dirY;
 
 }
 
-void Bullet::Render(Core* pEngine)
+void Bullet::Render()
 {
 	if (!_enable)
 		return;
 
 	if (_size == 0)
-		pEngine->Draw((int)_x, (int)_y, _color);
+		_pEngine->Draw((int)_x, (int)_y, _color);
 	else
-		pEngine->FillCircle((int)_x, (int)_y, _size, _color);
+		_pEngine->FillCircle((int)_x, (int)_y, _size, _color);
 }

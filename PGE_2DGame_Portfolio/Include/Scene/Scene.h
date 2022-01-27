@@ -1,12 +1,17 @@
 #pragma once
 
+class Core;
+
 class Scene
 {
 public:
-	Scene();
+	Scene(Core* pEngine);
 	virtual ~Scene();
 
 public:
-	virtual void Update(class Core* pEngine) = 0;
-	virtual void Render(class Core* pEngine) = 0;
+	virtual void Update() = 0;
+	virtual void Render() = 0;
+
+protected:
+	Core* _pEngine;
 };

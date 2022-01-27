@@ -6,15 +6,17 @@ class Core;
 class Obj
 {
 public:
-	Obj();
+	Obj(Core* pEngine);
 	virtual ~Obj();
 
 public:
-	virtual void Update(Core* pEngine) = 0;
-	virtual void Render(Core* pEngine) = 0;
+	virtual void Update() = 0;
+	virtual void Render() = 0;
 
 
 protected:
+	Core* _pEngine;
+
 	float _x = 0.f;
 	float _y = 0.f;
 	olc::Pixel _color = olc::BLACK;

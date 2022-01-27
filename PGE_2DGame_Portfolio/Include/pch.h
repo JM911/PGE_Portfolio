@@ -14,3 +14,7 @@ using namespace std;
 #define TILE_SIZE	25
 
 #define TOWER_SIZE	10
+
+
+// Macro
+#define SAFE_DELETE(p)	if(p) { delete p; p = nullptr;}

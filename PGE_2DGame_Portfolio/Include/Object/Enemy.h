@@ -9,12 +9,13 @@ class Enemy :
     public Obj
 {
 public:
-    Enemy();
+    Enemy(Core* pEngine);
     virtual ~Enemy();
 
 public:
-    virtual void Update(Core* pEngine) override;
-    virtual void Render(Core* pEngine) override;
+    void Create(int genGridX, int genGridY, int size, int hp, int att, float speed, olc::Pixel color = olc::RED);
+    virtual void Update() override;
+    virtual void Render() override;
 
 
 

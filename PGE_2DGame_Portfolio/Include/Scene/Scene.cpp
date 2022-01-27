@@ -1,6 +1,7 @@
 #include "Scene.h"
 
-Scene::Scene()
+Scene::Scene(Core* pEngine)	:
+	_pEngine(pEngine)
 {
 }
 

@@ -13,12 +13,12 @@ class TestScene :
     public Scene
 {
 public:
-    TestScene();
+    TestScene(Core* pEngine);
     virtual ~TestScene();
 
 public:
-    virtual void Update(Core* pEngine) override;
-    virtual void Render(Core* pEngine) override;
+    virtual void Update() override;
+    virtual void Render() override;
 
     // Test
 public:

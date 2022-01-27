@@ -14,7 +14,7 @@ Core::~Core()
 bool Core::OnUserCreate()
 {
 	// Called once at the start, so create things here
-	_pScene = new TestScene();
+	_pScene = new TestScene(this);
 
 	return true;
 }
@@ -24,8 +24,8 @@ bool Core::OnUserUpdate(float fElapsedTime)
 	if (!_pScene)
 		return false;
 
-	_pScene->Update(this);
-	_pScene->Render(this);
+	_pScene->Update();
+	_pScene->Render();
 
 	return true;
 }

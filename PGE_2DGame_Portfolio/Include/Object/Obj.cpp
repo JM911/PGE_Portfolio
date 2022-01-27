@@ -1,6 +1,7 @@
 #include "Obj.h"
 
-Obj::Obj()
+Obj::Obj(Core* pEngine) :
+	_pEngine(pEngine)
 {
 }
 

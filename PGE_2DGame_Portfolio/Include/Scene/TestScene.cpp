@@ -5,9 +5,11 @@
 #include "../Object/Tower.h"
 #include "../Object/Enemy.h"
 
-TestScene::TestScene()
+TestScene::TestScene(Core* pEngine)	:
+	Scene(pEngine)
 {
-	_pTestMap = new Map();
+	// TODO: InGameScene 만들면 MapMake 함수 만들어서 리팩토링
+	_pTestMap = new Map(_pEngine);
 
 	int tmpArr[MAP_HEIGHT][MAP_WIDTH] =
 	{
@@ -31,12 +33,13 @@ TestScene::TestScene()
 
 	_pTestMap->SetTileTypeNum(tmpArr);
 
-	_pTestEnemy = new Enemy();
-	_pTestEnemy->SetAlive(true);
+	_pTestEnemy = new Enemy(_pEngine);
+	_pTestEnemy->Create(1, 1, 5, 5, 1, 30.f);
+	_pTestEnemy->SetAlive(false);
 
 	for (int i = 0; i < ENEMY_NUM; i++)
 	{
-		_pArrEnemy[i] = new Enemy();
+		_pArrEnemy[i] = new Enemy(_pEngine);
 		_pTestEnemy->SetAlive(false);
 	}
 	_spawnInterval = 0.5f;
@@ -46,60 +49,44 @@ TestScene::TestScene()
 
 TestScene::~TestScene()
 {
-	if (_pTestMap)
-	{
-		delete _pTestMap;
-		_pTestMap = nullptr;
-	}
+	SAFE_DELETE(_pTestMap);
 
 	for (int i = 0; i < MAP_HEIGHT; i++)
 	{
 		for (int j = 0; j < MAP_WIDTH; j++)
 		{
-			if (!_pTower[i][j])
-				continue;
-
-			delete _pTower[i][j];
-			_pTower[i][j] = nullptr;
+			SAFE_DELETE(_pTower[i][j]);
 		}
 	}
 
-	if (_pTestEnemy)
-	{
-		delete _pTestEnemy;
-		_pTestEnemy = nullptr;
-	}
+	SAFE_DELETE(_pTestEnemy);
 
 	for (int i = 0; i < ENEMY_NUM; i++)
 	{
-		if (_pArrEnemy[i])
-		{
-			delete _pArrEnemy[i];
-			_pArrEnemy[i] = nullptr;
-		}
+		SAFE_DELETE(_pArrEnemy[i]);
 	}
 }
 
-void TestScene::Update(Core* pEngine)
+void TestScene::Update()
 {
 	// Input
-	if (pEngine->GetKey(olc::Key::RIGHT).bPressed)
+	if (_pEngine->GetKey(olc::Key::RIGHT).bPressed)
 		_curGridX++;
-	if (pEngine->GetKey(olc::Key::LEFT).bPressed)
+	if (_pEngine->GetKey(olc::Key::LEFT).bPressed)
 		_curGridX--;
-	if (pEngine->GetKey(olc::Key::UP).bPressed)
+	if (_pEngine->GetKey(olc::Key::UP).bPressed)
 		_curGridY--;
-	if (pEngine->GetKey(olc::Key::DOWN).bPressed)
+	if (_pEngine->GetKey(olc::Key::DOWN).bPressed)
 		_curGridY++;
 
-	if (pEngine->GetKey(olc::Key::SPACE).bPressed && !_pTower[_curGridY][_curGridX])
+	if (_pEngine->GetKey(olc::Key::SPACE).bPressed && !_pTower[_curGridY][_curGridX])
 	{
-		_pTower[_curGridY][_curGridX] = new Tower(_curGridX, _curGridY);
-		_pTower[_curGridY][_curGridX]->SetEnable(true);
+		_pTower[_curGridY][_curGridX] = new Tower(_pEngine);
+		_pTower[_curGridY][_curGridX]->Create(_curGridX, _curGridY);
 	}
 
 	// Test
-	_pTestMap->Update(pEngine);
+	_pTestMap->Update();
 	_curX = MAP_POS_X + TILE_SIZE * _curGridX + TILE_SIZE / 2;
 	_curY = MAP_POS_Y + TILE_SIZE * _curGridY + TILE_SIZE / 2;
 
@@ -111,7 +98,7 @@ void TestScene::Update(Core* pEngine)
 			if (!_pTower[i][j])
 				continue;
 
-			_pTower[i][j]->Update(pEngine);
+			_pTower[i][j]->Update();
 		}
 	}
 
@@ -157,7 +144,7 @@ void TestScene::Update(Core* pEngine)
 
 
 	// enemy update => for문으로 변경
-	_pTestEnemy->Update(pEngine);
+	_pTestEnemy->Update();
 	_pTestEnemy->ChangeDirAt(10, 1, DIRECTION::DOWN);
 	_pTestEnemy->ChangeDirAt(10, 4, DIRECTION::LEFT);
 	_pTestEnemy->ChangeDirAt(1, 4, DIRECTION::DOWN);
@@ -166,14 +153,14 @@ void TestScene::Update(Core* pEngine)
 	CheckEnemyReach(_pTestEnemy);
 
 	// Wave 업데이트
-	SpawnWave(pEngine->GetElapsedTime());
+	SpawnWave(_pEngine->GetElapsedTime());
 
 	for (int i = 0; i < ENEMY_NUM; i++)
 	{
-		if (!_pArrEnemy)
+		if (!_pArrEnemy[i])
 			continue;
 
-		_pArrEnemy[i]->Update(pEngine);
+		_pArrEnemy[i]->Update();
 		_pArrEnemy[i]->ChangeDirAt(10, 1, DIRECTION::DOWN);
 		_pArrEnemy[i]->ChangeDirAt(10, 4, DIRECTION::LEFT);
 		_pArrEnemy[i]->ChangeDirAt(1, 4, DIRECTION::DOWN);
@@ -183,17 +170,17 @@ void TestScene::Update(Core* pEngine)
 	}
 }
 
-void TestScene::Render(Core* pEngine)
+void TestScene::Render()
 {
 	// Clear
-	pEngine->Clear(olc::DARK_BLUE);
+	_pEngine->Clear(olc::DARK_BLUE);
 
 	// Test
-	_pTestMap->Render(pEngine);
-	pEngine->DrawCircle(_curX, _curY, 10);
+	_pTestMap->Render();
+	_pEngine->DrawCircle(_curX, _curY, 10);
 
 
-	_pTestEnemy->Render(pEngine);
+	_pTestEnemy->Render();
 
 	for (int i = 0; i < MAP_HEIGHT; i++)
 	{
@@ -202,7 +189,7 @@ void TestScene::Render(Core* pEngine)
 			if (!_pTower[i][j])
 				continue;
 
-			_pTower[i][j]->Render(pEngine);
+			_pTower[i][j]->Render();
 		}
 	}
 
@@ -212,14 +199,14 @@ void TestScene::Render(Core* pEngine)
 		if (!_pArrEnemy)
 			continue;
 
-		_pArrEnemy[i]->Render(pEngine);
+		_pArrEnemy[i]->Render();
 	}
 
 
 
 	// HP 디스플레이
 	string tmp = to_string(_playerHP);
-	pEngine->DrawString(300, 30, tmp);
+	_pEngine->DrawString(300, 30, tmp);
 }
 
 void TestScene::SpawnWave(float elapsedTime)
@@ -233,7 +220,7 @@ void TestScene::SpawnWave(float elapsedTime)
 	{
 		_spawnTimeTick = 0.f;
 		if (_pArrEnemy[_spawnIndex])
-			_pArrEnemy[_spawnIndex]->SetAlive(true);
+			_pArrEnemy[_spawnIndex]->Create(1, 1, 5, 5, 1, 30.f);
 		_spawnIndex++;
 	}
 }

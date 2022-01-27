@@ -7,12 +7,13 @@ class Bullet :
     public Obj
 {
 public:
-    Bullet();
+    Bullet(Core* pEngine);
     virtual ~Bullet();
 
 public:
-    virtual void Update(Core* pEngine) override;
-    virtual void Render(Core* pEngine) override;
+    void Create(float x, float y, int size, Enemy* pTarget);
+    virtual void Update() override;
+    virtual void Render() override;
 
 
 
