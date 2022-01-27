@@ -5,6 +5,7 @@
 Bullet::Bullet()
 {
 	_speed = 100.f;
+	_ATT = 1;
 }
 
 Bullet::~Bullet()
@@ -25,6 +26,7 @@ void Bullet::Update(Core* pEngine)
 	if (dist < eps)
 	{
 		// TODO: 타겟의 HP 깎이는 함수 구현 후 호출
+		_pTarget->BeDamaged(_ATT);
 		_enable = false;
 	}
 

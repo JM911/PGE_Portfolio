@@ -81,7 +81,7 @@ void Tower::ReleaseBullet()
 
 bool Tower::CheckTargetInRange()
 {
-	if (!_pTarget)
+	if (!_pTarget || !_pTarget->GetAlive())
 		return false;
 
 	float x = _x - _pTarget->GetX();
