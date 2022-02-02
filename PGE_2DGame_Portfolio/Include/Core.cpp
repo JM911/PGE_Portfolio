@@ -1,20 +1,22 @@
 #include "Core.h"
 #include "Scene/TestScene.h"
+#include "Scene/StageTest.h"
 
 Core::Core()
 {
-	sAppName = "Core";
+	sAppName = "Circle Invaders";
 }
 
 Core::~Core()
 {
-	ReleaseScene();
+	SAFE_DELETE(_pScene);
 }
 
 bool Core::OnUserCreate()
 {
 	// Called once at the start, so create things here
-	_pScene = new TestScene(this);
+	_pScene = new StageTest(this);
+	((StageTest*)_pScene)->Create();
 
 	return true;
 }
@@ -33,16 +35,7 @@ bool Core::OnUserUpdate(float fElapsedTime)
 void Core::SetScene(Scene* pScene)
 {
 	if (_pScene)
-		ReleaseScene();
+		SAFE_DELETE(_pScene);
 
 	_pScene = pScene;
-}
-
-void Core::ReleaseScene()
-{
-	if (!_pScene)
-		return;
-
-	delete _pScene;
-	_pScene = nullptr;
 }

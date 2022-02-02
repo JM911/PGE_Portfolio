@@ -28,11 +28,11 @@ public:
     int _curGridX = 0;
     int _curGridY = 0;
 
-    Tower* _pTower[MAP_HEIGHT][MAP_WIDTH] = { nullptr, };
+    Tower* _pTower[MAP_HEIGHT][MAP_WIDTH] = { nullptr };
 
     Enemy* _pTestEnemy = nullptr;
 
-    Enemy* _pArrEnemy[ENEMY_NUM] = { nullptr, };
+    Enemy* _pArrEnemy[ENEMY_NUM] = { nullptr };
 
 
     // 웨이브 스폰 메커니즘 (나중에 Wave 클래스로 변경)

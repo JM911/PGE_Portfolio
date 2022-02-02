@@ -16,7 +16,7 @@ Tower::~Tower()
 	SAFE_DELETE(_pBullet);
 }
 
-void Tower::Create(int gridX, int gridY)
+bool Tower::Create(int gridX, int gridY)
 {
 	// 원모양 타워의 중심으로 세팅
 	_gridX = gridX;
@@ -26,6 +26,8 @@ void Tower::Create(int gridX, int gridY)
 	_y = float(MAP_POS_Y + TILE_SIZE * _gridY + TILE_SIZE / 2);
 
 	_enable = true;
+
+	return true;
 }
 
 void Tower::Update()

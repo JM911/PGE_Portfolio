@@ -5,7 +5,8 @@
 Bullet::Bullet(Core* pEngine)	:
 	Obj(pEngine)
 {
-	_speed = 100.f;
+	// test
+	_speed = 150.f;
 	_ATT = 1;
 }
 

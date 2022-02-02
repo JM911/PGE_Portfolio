@@ -25,18 +25,21 @@ TestScene::TestScene(Core* pEngine)	:
 		3, 3, 3, 3, 3,	3, 3, 3, 3, 3,	3, 3,
 	};
 
+	_pTestMap->SetTileTypeNum(tmpArr);
+
+	// 적들 도착 지점
 	int finalGridX = 10;
 	int finalGridY = 7;
 
 	_finalX = float(MAP_POS_X + TILE_SIZE * finalGridX + TILE_SIZE / 2);
 	_finalY = float(MAP_POS_Y + TILE_SIZE * finalGridY + TILE_SIZE / 2);
 
-	_pTestMap->SetTileTypeNum(tmpArr);
-
+	// 적 생성
 	_pTestEnemy = new Enemy(_pEngine);
 	_pTestEnemy->Create(1, 1, 5, 5, 1, 30.f);
 	_pTestEnemy->SetAlive(false);
 
+	// 웨이브 생성
 	for (int i = 0; i < ENEMY_NUM; i++)
 	{
 		_pArrEnemy[i] = new Enemy(_pEngine);
@@ -44,6 +47,7 @@ TestScene::TestScene(Core* pEngine)	:
 	}
 	_spawnInterval = 0.5f;
 
+	// 기타
 	_playerHP = 20;
 }
 

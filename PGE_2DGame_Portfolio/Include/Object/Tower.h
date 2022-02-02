@@ -12,7 +12,7 @@ public:
     virtual ~Tower();
 
 public:
-    void Create(int gridX, int gridY);
+    bool Create(int gridX, int gridY);
     virtual void Update() override;
     virtual void Render() override;
 

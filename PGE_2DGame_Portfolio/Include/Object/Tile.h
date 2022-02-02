@@ -11,7 +11,7 @@ public:
     ~Tile();
 
 public:
-    void Create(float offsetX, float offsetY, int gridX, int gridY, int size);
+    bool Create(float offsetX, float offsetY, int gridX, int gridY, int size);
     virtual void Update() override;
     virtual void Render() override;
 

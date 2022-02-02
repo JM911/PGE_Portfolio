@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -27,10 +27,12 @@
     <ClInclude Include="Include\Object\Obj.h" />
     <ClInclude Include="Include\Object\Tile.h" />
     <ClInclude Include="Include\Object\Tower.h" />
+    <ClInclude Include="Include\Object\Wave.h" />
     <ClInclude Include="Include\olcPixelGameEngine.h" />
     <ClInclude Include="Include\pch.h" />
+    <ClInclude Include="Include\Scene\InGameScene.h" />
     <ClInclude Include="Include\Scene\Scene.h" />
-    <ClInclude Include="Include\Scene\TestScene.h" />
+    <ClInclude Include="Include\Scene\StageTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\Core.cpp" />
@@ -41,8 +43,10 @@
     <ClCompile Include="Include\Object\Obj.cpp" />
     <ClCompile Include="Include\Object\Tile.cpp" />
     <ClCompile Include="Include\Object\Tower.cpp" />
+    <ClCompile Include="Include\Object\Wave.cpp" />
+    <ClCompile Include="Include\Scene\InGameScene.cpp" />
     <ClCompile Include="Include\Scene\Scene.cpp" />
-    <ClCompile Include="Include\Scene\TestScene.cpp" />
+    <ClCompile Include="Include\Scene\StageTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="memo.txt" />

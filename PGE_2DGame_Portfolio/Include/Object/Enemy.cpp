@@ -5,25 +5,13 @@
 Enemy::Enemy(Core* pEngine)	:
 	Obj(pEngine)
 {
-	//// test
-	//_genGridX = 1;
-	//_genGridY = 1;
-	//_HP = 5;
-	//_size = 5;
-	//_color = olc::RED;
-	//_speed = 30.f;
-
-	//_HP = 10;
-	//_ATT = 1;
-
-	// 
 }
 
 Enemy::~Enemy()
 {
 }
 
-void Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float speed, olc::Pixel color)
+bool Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float speed, olc::Pixel color)
 {
 	_genGridX = genGridX;
 	_genGridY = genGridY;
@@ -37,6 +25,8 @@ void Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float 
 	_alive = true;
 	_x = float(MAP_POS_X + TILE_SIZE * _genGridX + TILE_SIZE / 2);
 	_y = float(MAP_POS_Y + TILE_SIZE * _genGridY + TILE_SIZE / 2);
+
+	return true;
 }
 
 void Enemy::Update()

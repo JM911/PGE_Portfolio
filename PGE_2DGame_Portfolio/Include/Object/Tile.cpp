@@ -10,7 +10,7 @@ Tile::~Tile()
 {
 }
 
-void Tile::Create(float offsetX, float offsetY, int gridX, int gridY, int size)
+bool Tile::Create(float offsetX, float offsetY, int gridX, int gridY, int size)
 {
 	_offsetX = offsetX;
 	_offsetY = offsetY;
@@ -23,6 +23,8 @@ void Tile::Create(float offsetX, float offsetY, int gridX, int gridY, int size)
 
 	//_type = type;
 	//TileColorUpdate();
+
+	return true;
 }
 
 void Tile::Update()
@@ -50,6 +52,9 @@ void Tile::TileColorUpdate()
 		break;
 	case TILE_TYPE::UNABLE:
 		_color = olc::DARK_RED;
+		break;
+	default:
+		_color = olc::BLACK;
 		break;
 	}
 }

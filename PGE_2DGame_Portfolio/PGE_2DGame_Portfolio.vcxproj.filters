@@ -33,6 +33,9 @@
     <Filter Include="소스 파일\Object\Bullet">
       <UniqueIdentifier>{55ff64ab-ea80-4653-8a55-e2aacc97f9cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scene\Stage">
+      <UniqueIdentifier>{b8782c76-858c-49f9-b854-fb0c4d0ecd6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\olcPixelGameEngine.h">
@@ -45,9 +48,6 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Include\Scene\Scene.h">
-      <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Scene\TestScene.h">
       <Filter>소스 파일\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Include\Object\Obj.h">
@@ -71,6 +71,15 @@
     <ClInclude Include="Include\Object\Bullet.h">
       <Filter>소스 파일\Object\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Object\Wave.h">
+      <Filter>소스 파일\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\InGameScene.h">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\StageTest.h">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\main.cpp">
@@ -80,9 +89,6 @@
       <Filter>소스 파일\Core</Filter>
     </ClCompile>
     <ClCompile Include="Include\Scene\Scene.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Include\Scene\TestScene.cpp">
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Include\Object\Obj.cpp">
@@ -102,6 +108,15 @@
     </ClCompile>
     <ClCompile Include="Include\Object\Bullet.cpp">
       <Filter>소스 파일\Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\Wave.cpp">
+      <Filter>소스 파일\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\InGameScene.cpp">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\StageTest.cpp">
+      <Filter>소스 파일\Scene\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,5 @@ private:
 
 public:
 	void SetScene(Scene* pScene);
-	void ReleaseScene();
 };
 
