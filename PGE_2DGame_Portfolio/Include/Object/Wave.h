@@ -2,23 +2,26 @@
 #include "Obj.h"
 
 class Enemy;
+class InGameScene;
 
 class Wave :
     public Obj
 {
 public:
-    Wave(Core* pEngine);
+    Wave(Core* pEngine, InGameScene* pScene);
     virtual ~Wave();
 
 public:
     bool Create(int enemyNum,  float spawnStartTime, float spawnInterval);
     bool EnemyCreate(int spawnGridX, int spawnGridY, int size,
-        int hp, int att, float speed, olc::Pixel color = olc::RED);
+        int hp, int att, float speed, int reward, olc::Pixel color = olc::RED);
     virtual void Update() override;
     virtual void Render() override;
 
 
 private:
+    InGameScene* _pScene = nullptr;
+
     Enemy* _pEnemy[MAX_ENEMY_NUM] = { nullptr };
     int _enemyNum = 0;
 

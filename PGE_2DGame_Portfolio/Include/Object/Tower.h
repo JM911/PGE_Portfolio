@@ -13,6 +13,7 @@ public:
 
 public:
     bool Create(int gridX, int gridY);
+    void Setting(int size, float range, float interval, olc::Pixel color = olc::WHITE);
     virtual void Update() override;
     virtual void Render() override;
 

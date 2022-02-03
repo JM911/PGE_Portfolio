@@ -7,6 +7,7 @@ Tower::Tower(Core* pEngine)	:
 	Obj(pEngine)
 {
 	// test
+	_size = TOWER_SIZE;
 	_range = 60.f;
 	_interval = 2.f;
 }
@@ -28,6 +29,14 @@ bool Tower::Create(int gridX, int gridY)
 	_enable = true;
 
 	return true;
+}
+
+void Tower::Setting(int size, float range, float interval, olc::Pixel color)
+{
+	_size = size;
+	_range = range;
+	_interval = interval;
+	_color = color;
 }
 
 void Tower::Update()
@@ -52,7 +61,7 @@ void Tower::Render()
 	if (!_enable)
 		return;
 
-	_pEngine->FillCircle((int)_x, (int)_y, TOWER_SIZE);
+	_pEngine->FillCircle((int)_x, (int)_y, _size, _color);
 
 
 	// bullet Render
@@ -75,7 +84,8 @@ void Tower::CreateBullet()
 		return;
 
 	_pBullet = new Bullet(_pEngine);
-	_pBullet->Create(_x, _y, 2, _pTarget);
+	_pBullet->Create(_x, _y, _pTarget);
+	_pBullet->Setting(2, 150.f, 1);		// 외부변경? 타워 타입별로 다르게
 }
 
 bool Tower::CheckTargetInRange()

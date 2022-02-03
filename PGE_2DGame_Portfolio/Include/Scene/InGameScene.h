@@ -33,6 +33,9 @@ protected:
 protected:
     void PlayerInput();
     
+public:
+    void GetReward(int reward);
+    
 
     // 스테이지 요소
 protected:
@@ -52,8 +55,17 @@ protected:
     virtual bool WaveCreate() = 0;      // 웨이브 제작 (하드 코딩)
     virtual void WaveChangeDir() = 0;   // 웨이븝 방향전환 (하드 코딩)
 
-    void TowerCreate(int gridX, int gridY);     // TODO: 나중에 타워 타입 추가
+    void TowerCreate(int gridX, int gridY, TOWER_TYPE type);     // TODO: 나중에 타워 타입 추가
 
     void TowerTargetUpdate();
+
+    // 타워 건설 관련
+protected:
+    TOWER_TYPE _towerType = TOWER_TYPE::WHITE;
+
+    virtual int Cost(TOWER_TYPE type) = 0;  // 타워 타입별 가격 설정(하드 코딩)
+    virtual void SelectTypeInput() = 0;     // 타입별 입력 키 맵핑(하드 코딩)
+    virtual void TowerSetting(int gridX, int gridY) = 0;    // 타입별 세부 수치 설정(하드 코딩)
+    // => 만약 모든 맵에서 타워 종류를 통일한다면 다른 방법으로 리팩토링 고려
 };
 

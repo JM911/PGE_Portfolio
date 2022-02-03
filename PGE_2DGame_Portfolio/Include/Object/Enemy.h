@@ -4,29 +4,34 @@
 // 방향전환, 소멸판정은 모두 씬에서
 
 class Bullet;
+class InGameScene;
 
 class Enemy :
     public Obj
 {
 public:
-    Enemy(Core* pEngine);
+    Enemy(Core* pEngine, InGameScene* pScene);
     virtual ~Enemy();
 
 public:
-    bool Create(int genGridX, int genGridY, int size, 
-        int hp, int att, float speed, olc::Pixel color = olc::RED);
+    bool Create(int genGridX, int genGridY, int size, int hp, int att, 
+        float speed, int reward, olc::Pixel color = olc::RED);
     virtual void Update() override;
     virtual void Render() override;
 
 
 
 private:
+    InGameScene* _pScene = nullptr;
+
     int _genGridX = 0;      // 생성위치
     int _genGridY = 0;
 
     bool _alive = false;
     int _HP = 0;
     int _ATT = 0;
+
+    int _reward = 0;
     
     DIRECTION _dir = DIRECTION::RIGHT;
     float _speed = 0.f;     // pixel per second
@@ -39,6 +44,7 @@ public:
     bool GetAlive() const { return _alive; }
     int GetHP() const { return _HP; }
     int GetATT() const { return _ATT; }
+    int GetReward() const { return _reward; }
 
     DIRECTION GetDir() const { return _dir; }
     float GetSpeed() const { return _speed; }

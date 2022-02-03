@@ -112,6 +112,20 @@ void InGameScene::Render()
 	int _curY = MAP_POS_Y + TILE_SIZE * _curGridY + TILE_SIZE / 2;
 	_pEngine->FillCircle(_curX, _curY, 5, olc::BLACK);
 
+	// ½Ã°£
+	string strTime = "TIME: ";
+	strTime += to_string((int)_curTime);
+	_pEngine->DrawString(50, 50, strTime);
+
+	// ¸ñ¼û
+	string strLife = "LIFE: ";
+	strLife += to_string(_playerLife);
+	_pEngine->DrawString(50, 100, strLife);
+
+	// °ñµå
+	string strGold = "GOLD: ";
+	strGold += to_string(_playerGold);
+	_pEngine->DrawString(50, 150, strGold);
 }
 
 void InGameScene::PlayerInput()
@@ -125,19 +139,33 @@ void InGameScene::PlayerInput()
 	if (_pEngine->GetKey(olc::Key::DOWN).bPressed)
 		_curGridY++;
 
+	SelectTypeInput();
+
 	if (_pEngine->GetKey(olc::Key::SPACE).bPressed && !_pTower[_curGridY][_curGridX])
 	{
-		TowerCreate(_curGridX, _curGridY);
+		TowerCreate(_curGridX, _curGridY, _towerType);
 	}
 }
 
-void InGameScene::TowerCreate(int gridX, int gridY)
+void InGameScene::GetReward(int reward)
+{
+	_playerGold += reward;
+}
+
+void InGameScene::TowerCreate(int gridX, int gridY, TOWER_TYPE type)
 {
 	if (!_pMap || _pMap->GetTileType(gridX, gridY) != TILE_TYPE::ABLE)
+		return;
+
+	if (_playerGold < Cost(type))
 		return;
 	
 	_pTower[gridY][gridX] = new Tower(_pEngine);
 	_pTower[gridY][gridX]->Create(gridX, gridY);
+
+	TowerSetting(gridX, gridY);
+
+	_playerGold -= Cost(type);
 
 	_pMap->SetTileType(gridX, gridY, TILE_TYPE::OCCUPIED);
 }

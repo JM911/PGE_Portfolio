@@ -19,6 +19,7 @@ bool StageTest::Create()
 {
 	MapCreate();
 	WaveCreate();
+	_playerGold = 1000;
 
 	return true;
 }
@@ -31,6 +32,7 @@ void StageTest::Update()
 void StageTest::Render()
 {
 	InGameScene::Render();
+	TowerTypeUIRender();
 }
 
 bool StageTest::MapCreate()
@@ -67,9 +69,9 @@ bool StageTest::MapCreate()
 
 bool StageTest::WaveCreate()
 {
-	_pWave[0] = new Wave(_pEngine);
+	_pWave[0] = new Wave(_pEngine, this);
 	_pWave[0]->Create(10, 5.f, 0.5f);
-	_pWave[0]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 5, 1, 30.f);
+	_pWave[0]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 5, 1, 30.f, 50);
 
 	return true;
 }
@@ -85,5 +87,71 @@ void StageTest::WaveChangeDir()
 		_pWave[i]->ChangeWaveDirAt(10, 4, DIRECTION::LEFT);
 		_pWave[i]->ChangeWaveDirAt(1, 4, DIRECTION::DOWN);
 		_pWave[i]->ChangeWaveDirAt(1, 7, DIRECTION::RIGHT);
+	}
+}
+
+int StageTest::Cost(TOWER_TYPE type)
+{
+	switch (type)
+	{
+	case TOWER_TYPE::WHITE:
+		return 100;
+	case TOWER_TYPE::YELLOW:
+		return 150;
+	case TOWER_TYPE::BLUE:
+		return 200;
+	default:
+		return 0;
+	}
+}
+
+void StageTest::SelectTypeInput()
+{
+	if (_pEngine->GetKey(olc::Key::K1).bPressed)
+		_towerType = TOWER_TYPE::WHITE;
+	if (_pEngine->GetKey(olc::Key::K2).bPressed)
+		_towerType = TOWER_TYPE::YELLOW;
+	if (_pEngine->GetKey(olc::Key::K3).bPressed)
+		_towerType = TOWER_TYPE::BLUE;
+}
+
+void StageTest::TowerSetting(int gridX, int gridY)
+{
+	switch (_towerType)
+	{
+	case TOWER_TYPE::WHITE:
+		_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::WHITE);
+		break;
+	case TOWER_TYPE::YELLOW:
+		_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::YELLOW);
+		break;
+	case TOWER_TYPE::BLUE:
+		_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::BLUE);
+		break;
+	}
+}
+
+void StageTest::TowerTypeUIRender()
+{
+	_pEngine->FillCircle(200, 300, TOWER_SIZE, olc::WHITE);
+	_pEngine->DrawString(188, 320, "100");
+
+	_pEngine->FillCircle(300, 300, TOWER_SIZE, olc::YELLOW);
+	_pEngine->DrawString(288, 320, "150");
+
+	_pEngine->FillCircle(400, 300, TOWER_SIZE, olc::BLUE);
+	_pEngine->DrawString(388, 320, "200");
+
+	switch(_towerType)
+	{
+	case TOWER_TYPE::WHITE:
+		_pEngine->DrawRect(175, 283, 50, 50);
+		break;
+	case TOWER_TYPE::YELLOW:
+		_pEngine->DrawRect(275, 283, 50, 50);
+		break;
+	case TOWER_TYPE::BLUE:
+		_pEngine->DrawRect(375, 283, 50, 50);
+		break;
 	}
 }

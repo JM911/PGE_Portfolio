@@ -11,7 +11,8 @@ public:
     virtual ~Bullet();
 
 public:
-    void Create(float x, float y, int size, Enemy* pTarget);
+    void Create(float x, float y, Enemy* pTarget);
+    void Setting(int size, float speed, int att, olc::Pixel color = olc::BLACK);
     virtual void Update() override;
     virtual void Render() override;
 

@@ -2,8 +2,8 @@
 #include "Enemy.h"
 #include "../Core.h"
 
-Wave::Wave(Core* pEngine)	:
-	Obj(pEngine)
+Wave::Wave(Core* pEngine, InGameScene* pScene)	:
+	Obj(pEngine), _pScene(pScene)
 {
 }
 
@@ -26,20 +26,20 @@ bool Wave::Create(int enemyNum, float spawnStartTime, float spawnInterval)
 
 	for (int i = 0; i < _enemyNum; i++)
 	{
-		_pEnemy[i] = new Enemy(_pEngine);
+		_pEnemy[i] = new Enemy(_pEngine, _pScene);
 	}
 
 	return true;
 }
 
-bool Wave::EnemyCreate(int spawnGridX, int spawnGridY, int size, int hp, int att, float speed, olc::Pixel color)
+bool Wave::EnemyCreate(int spawnGridX, int spawnGridY, int size, int hp, int att, float speed, int reward, olc::Pixel color)
 {
 	for (int i = 0; i < _enemyNum; i++)
 	{
 		if (!_pEnemy[i])
 			continue;
 
-		if (!(_pEnemy[i]->Create(spawnGridX, spawnGridY, size, hp, att, speed, color)))
+		if (!(_pEnemy[i]->Create(spawnGridX, spawnGridY, size, hp, att, speed, reward, color)))
 			return false;
 
 		_pEnemy[i]->SetAlive(false);

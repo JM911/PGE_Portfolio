@@ -16,6 +16,12 @@ public:
 private:
     virtual bool MapCreate() override;
     virtual bool WaveCreate() override;    
-    virtual void WaveChangeDir() override; 
+    virtual void WaveChangeDir() override;
+
+    virtual int Cost(TOWER_TYPE type) override;
+    virtual void SelectTypeInput() override;
+    virtual void TowerSetting(int gridX, int gridY) override;
+
+    void TowerTypeUIRender();
 };
 

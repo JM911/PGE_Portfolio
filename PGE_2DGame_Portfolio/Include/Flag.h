@@ -25,3 +25,15 @@ enum class ENEMY_TYPE
 
 	END,
 };
+
+enum class TOWER_TYPE
+{
+	WHITE,
+	YELLOW,
+	GREEN,
+	BLUE,
+	PURPLE,
+	BLACK,
+
+	END,
+};

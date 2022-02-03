@@ -1,9 +1,10 @@
 #include "Enemy.h"
 #include "../Core.h"
 #include "Bullet.h"
+#include "../Scene/InGameScene.h"
 
-Enemy::Enemy(Core* pEngine)	:
-	Obj(pEngine)
+Enemy::Enemy(Core* pEngine, InGameScene* pScene)	:
+	Obj(pEngine), _pScene(pScene)
 {
 }
 
@@ -11,7 +12,7 @@ Enemy::~Enemy()
 {
 }
 
-bool Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float speed, olc::Pixel color)
+bool Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float speed, int reward, olc::Pixel color)
 {
 	_genGridX = genGridX;
 	_genGridY = genGridY;
@@ -20,6 +21,7 @@ bool Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float 
 	_HP = hp;
 	_ATT = att;
 	_speed = speed;
+	_reward = reward;
 	_color = color;
 
 	_alive = true;
@@ -33,9 +35,6 @@ void Enemy::Update()
 {
 	if (!_alive)
 		return;
-
-	if (_HP <= 0)
-		_alive = false;
 
 	float fElapsedTime = _pEngine->GetElapsedTime();
 
@@ -97,4 +96,10 @@ void Enemy::ChangeDirAt(int gridX, int gridY, DIRECTION dir)
 void Enemy::BeDamaged(int att)
 {
 	_HP -= att;
+
+	if (_HP <= 0 && _HP + att > 0)
+	{
+		_alive = false;
+		_pScene->GetReward(_reward);
+	}
 }

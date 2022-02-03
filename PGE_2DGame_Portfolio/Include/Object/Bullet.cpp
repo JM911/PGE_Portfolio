@@ -14,14 +14,21 @@ Bullet::~Bullet()
 {
 }
 
-void Bullet::Create(float x, float y, int size, Enemy* pTarget)
+void Bullet::Create(float x, float y, Enemy* pTarget)
 {
 	_x = x;
 	_y = y;
-	_size = size;
 
 	_pTarget = pTarget;
 	_enable = true;
+}
+
+void Bullet::Setting(int size, float speed, int att, olc::Pixel color)
+{
+	_size = size;
+	_speed = speed;
+	_ATT = att;
+	_color = color;
 }
 
 void Bullet::Update()
@@ -36,7 +43,7 @@ void Bullet::Update()
 
 	// Range Check & Die
 	float dist = sqrtf(_dirX * _dirX + _dirY * _dirY);
-	float eps = 0.1f;
+	float eps = 0.25f;
 	if (dist < eps)
 	{
 		_pTarget->BeDamaged(_ATT);
