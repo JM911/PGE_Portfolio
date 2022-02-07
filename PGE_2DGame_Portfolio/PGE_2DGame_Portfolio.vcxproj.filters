@@ -80,6 +80,18 @@
     <ClInclude Include="Include\Scene\StageTest.h">
       <Filter>소스 파일\Scene\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Object\DebuffTower.h">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Object\MortarTower.h">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Object\NormalTower.h">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Object\BurstTower.h">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\main.cpp">
@@ -117,6 +129,18 @@
     </ClCompile>
     <ClCompile Include="Include\Scene\StageTest.cpp">
       <Filter>소스 파일\Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\NormalTower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\MortarTower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\DebuffTower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Object\BurstTower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

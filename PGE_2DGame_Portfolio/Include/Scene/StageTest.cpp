@@ -2,7 +2,8 @@
 #include "../Core.h"
 
 #include "../Object/Map.h"
-#include "../Object/Tower.h"
+#include "../Object/NormalTower.h"
+#include "../Object/BurstTower.h"
 #include "../Object/Enemy.h"
 #include "../Object/Wave.h"
 
@@ -94,11 +95,11 @@ int StageTest::Cost(TOWER_TYPE type)
 {
 	switch (type)
 	{
-	case TOWER_TYPE::WHITE:
+	case TOWER_TYPE::NORMAL:
 		return 100;
-	case TOWER_TYPE::YELLOW:
+	case TOWER_TYPE::BURST:
 		return 150;
-	case TOWER_TYPE::BLUE:
+	case TOWER_TYPE::DEBUFF:
 		return 200;
 	default:
 		return 0;
@@ -108,25 +109,28 @@ int StageTest::Cost(TOWER_TYPE type)
 void StageTest::SelectTypeInput()
 {
 	if (_pEngine->GetKey(olc::Key::K1).bPressed)
-		_towerType = TOWER_TYPE::WHITE;
+		_towerType = TOWER_TYPE::NORMAL;
 	if (_pEngine->GetKey(olc::Key::K2).bPressed)
-		_towerType = TOWER_TYPE::YELLOW;
-	if (_pEngine->GetKey(olc::Key::K3).bPressed)
-		_towerType = TOWER_TYPE::BLUE;
+		_towerType = TOWER_TYPE::BURST;
+	//if (_pEngine->GetKey(olc::Key::K3).bPressed)
+	//	_towerType = TOWER_TYPE::DEBUFF;
 }
 
 void StageTest::TowerSetting(int gridX, int gridY)
 {
 	switch (_towerType)
 	{
-	case TOWER_TYPE::WHITE:
-		_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::WHITE);
+	case TOWER_TYPE::NORMAL:
+		static_cast<NormalTower*>(_pTower[gridY][gridX])->Setting(60.f, 2.f, olc::WHITE);
 		break;
-	case TOWER_TYPE::YELLOW:
-		_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::YELLOW);
+	case TOWER_TYPE::BURST:
+		static_cast<BurstTower*>(_pTower[gridY][gridX])->Setting(5, 60.f, 1.5f, olc::YELLOW);
 		break;
-	case TOWER_TYPE::BLUE:
-		_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::BLUE);
+	case TOWER_TYPE::DEBUFF:
+		//_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::YELLOW);
+		break;
+	case TOWER_TYPE::MORTAR:
+		//_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::BLUE);
 		break;
 	}
 }
@@ -144,13 +148,13 @@ void StageTest::TowerTypeUIRender()
 
 	switch(_towerType)
 	{
-	case TOWER_TYPE::WHITE:
+	case TOWER_TYPE::NORMAL:
 		_pEngine->DrawRect(175, 283, 50, 50);
 		break;
-	case TOWER_TYPE::YELLOW:
+	case TOWER_TYPE::DEBUFF:
 		_pEngine->DrawRect(275, 283, 50, 50);
 		break;
-	case TOWER_TYPE::BLUE:
+	case TOWER_TYPE::MORTAR:
 		_pEngine->DrawRect(375, 283, 50, 50);
 		break;
 	}

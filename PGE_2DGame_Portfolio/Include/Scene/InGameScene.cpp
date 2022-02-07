@@ -2,7 +2,8 @@
 #include "../Core.h"
 
 #include "../Object/Map.h"
-#include "../Object/Tower.h"
+#include "../Object/NormalTower.h"
+#include "../Object/BurstTower.h"
 #include "../Object/Enemy.h"
 #include "../Object/Wave.h"
 
@@ -139,6 +140,15 @@ void InGameScene::PlayerInput()
 	if (_pEngine->GetKey(olc::Key::DOWN).bPressed)
 		_curGridY++;
 
+	if (_curGridX < 0)
+		_curGridX = 0;
+	else if (_curGridX >= MAP_WIDTH)
+		_curGridX = MAP_WIDTH - 1;
+	if (_curGridY < 0)
+		_curGridY = 0;
+	else if (_curGridY >= MAP_HEIGHT)
+		_curGridY = MAP_HEIGHT - 1;
+
 	SelectTypeInput();
 
 	if (_pEngine->GetKey(olc::Key::SPACE).bPressed && !_pTower[_curGridY][_curGridX])
@@ -160,8 +170,22 @@ void InGameScene::TowerCreate(int gridX, int gridY, TOWER_TYPE type)
 	if (_playerGold < Cost(type))
 		return;
 	
-	_pTower[gridY][gridX] = new Tower(_pEngine);
-	_pTower[gridY][gridX]->Create(gridX, gridY);
+	// TODO: 채우기
+	switch (type)
+	{
+	case TOWER_TYPE::NORMAL:
+		_pTower[gridY][gridX] = new NormalTower(_pEngine);
+		_pTower[gridY][gridX]->Create(gridX, gridY);
+		break;
+	case TOWER_TYPE::BURST:
+		_pTower[gridY][gridX] = new BurstTower(_pEngine);
+		_pTower[gridY][gridX]->Create(gridX, gridY);
+		break;
+	case TOWER_TYPE::DEBUFF:
+		break;
+	case TOWER_TYPE::MORTAR:
+		break;
+	}
 
 	TowerSetting(gridX, gridY);
 
@@ -181,7 +205,8 @@ void InGameScene::TowerTargetUpdate()
 				continue;
 
 			// 이미 설정한 타겟이 범위안에 있으면 넘어감
-			if (_pTower[i][j]->GetTarget() && _pTower[i][j]->CheckTargetInRange())
+			if (_pTower[i][j]->GetTarget() 
+				&& _pTower[i][j]->CheckTargetInRange())
 				continue;
 
 			for (int k = 0; k < MAX_WAVE_NUM; k++)		// 여러 웨이브가 맵에 있어도 모두 체크하도록
@@ -208,3 +233,36 @@ void InGameScene::TowerTargetUpdate()
 		}
 	}
 }
+
+//bool InGameScene::IsPrevTargetRemaining(int gridX, int gridY)
+//{
+//	// TODO: 채우기
+//	switch (_pTower[gridY][gridX]->GetType())
+//	{
+//	case TOWER_TYPE::NORMAL:
+//		return (static_cast<NormalTower*>(_pTower[gridY][gridX])->GetTarget()
+//			&& static_cast<NormalTower*>(_pTower[gridY][gridX])->CheckTargetInRange());
+//	case TOWER_TYPE::BURST:
+//		return (static_cast<BurstTower*>(_pTower[gridY][gridX])->GetTarget()
+//			&& static_cast<BurstTower*>(_pTower[gridY][gridX])->CheckTargetInRange());
+//	case TOWER_TYPE::DEBUFF:
+//	case TOWER_TYPE::MORTAR:
+//	}
+//
+//	return false;
+//}
+//
+//void InGameScene::SetTargetHelper(int gridX, int gridY, Enemy* target)
+//{
+//	switch (_pTower[gridY][gridX]->GetType())
+//	{
+//	case TOWER_TYPE::NORMAL:
+//		static_cast<NormalTower*>(_pTower[gridY][gridX])->SetTarget(target);
+//		break;
+//	case TOWER_TYPE::BURST:
+//		static_cast<BurstTower*>(_pTower[gridY][gridX])->SetTarget(target);
+//		break;
+//	case TOWER_TYPE::DEBUFF:
+//	case TOWER_TYPE::MORTAR:
+//	}
+//}

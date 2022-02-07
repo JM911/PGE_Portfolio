@@ -19,6 +19,7 @@ bool Enemy::Create(int genGridX, int genGridY, int size, int hp, int att, float 
 	_size = size;
 
 	_HP = hp;
+	_maxHP = hp;
 	_ATT = att;
 	_speed = speed;
 	_reward = reward;
@@ -62,8 +63,17 @@ void Enemy::Render()
 
 	_pEngine->FillCircle((int)_x, (int)_y, _size, _color);
 
-	string tmp = to_string(_HP);
-	_pEngine->DrawString((int)_x, (int)_y, tmp);
+	int hpBarX = (int)_x - _size;
+	int hpBarY = (int)_y - _size - 2;
+
+	int maxHPBarSize = _size * 2;
+	int curHPBarSize = maxHPBarSize * _HP / _maxHP;
+
+	_pEngine->DrawLine(hpBarX, hpBarY, hpBarX + maxHPBarSize, hpBarY, olc::RED);
+	_pEngine->DrawLine(hpBarX, hpBarY, hpBarX + curHPBarSize, hpBarY, olc::GREEN);
+
+	//string tmp = to_string(_HP);
+	//_pEngine->DrawString((int)_x, (int)_y, tmp);
 }
 
 void Enemy::ChangeDirAt(int gridX, int gridY, DIRECTION dir)

@@ -28,12 +28,10 @@ enum class ENEMY_TYPE
 
 enum class TOWER_TYPE
 {
-	WHITE,
-	YELLOW,
-	GREEN,
-	BLUE,
-	PURPLE,
-	BLACK,
+	NORMAL,
+	BURST,
+	DEBUFF,
+	MORTAR,
 
 	END,
 };

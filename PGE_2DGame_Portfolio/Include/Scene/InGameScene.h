@@ -61,11 +61,16 @@ protected:
 
     // 타워 건설 관련
 protected:
-    TOWER_TYPE _towerType = TOWER_TYPE::WHITE;
+    TOWER_TYPE _towerType = TOWER_TYPE::NORMAL;
 
     virtual int Cost(TOWER_TYPE type) = 0;  // 타워 타입별 가격 설정(하드 코딩)
     virtual void SelectTypeInput() = 0;     // 타입별 입력 키 맵핑(하드 코딩)
     virtual void TowerSetting(int gridX, int gridY) = 0;    // 타입별 세부 수치 설정(하드 코딩)
     // => 만약 모든 맵에서 타워 종류를 통일한다면 다른 방법으로 리팩토링 고려
+
+
+    //// 추가
+    //bool IsPrevTargetRemaining(int gridX, int gridY);
+    //void SetTargetHelper(int gridX, int gridY, Enemy* target);
 };
 

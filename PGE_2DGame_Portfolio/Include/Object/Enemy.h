@@ -29,6 +29,7 @@ private:
 
     bool _alive = false;
     int _HP = 0;
+    int _maxHP = 0;
     int _ATT = 0;
 
     int _reward = 0;

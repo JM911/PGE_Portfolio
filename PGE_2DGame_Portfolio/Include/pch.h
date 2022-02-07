@@ -17,6 +17,7 @@ using namespace std;
 
 #define MAX_ENEMY_NUM	50
 #define MAX_WAVE_NUM	10
+#define MAX_BULLET_NUM	20
 
 
 // Macro
