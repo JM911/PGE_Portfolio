@@ -29,7 +29,7 @@ void NormalTower::Update()
 
 
 	// 공격 업데이트
-	TimeTickInc();
+	//TimeTickInc();
 	Attack();
 
 	// 총알 생사 체크
@@ -54,14 +54,6 @@ void NormalTower::Render()
 }
 
 
-void NormalTower::TimeTickInc()
-{
-	// 너무 커지면 증가 안하도록
-	if (_timeTick > 10000.f)
-		return;
-
-	_timeTick += _pEngine->GetElapsedTime();
-}
 
 void NormalTower::CreateBullet()
 {

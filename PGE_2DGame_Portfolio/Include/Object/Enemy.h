@@ -68,5 +68,17 @@ public:
 public:
     void ChangeDirAt(int gridX, int gridY, DIRECTION dir);
     void BeDamaged(int att);
+
+
+
+    // 디버프 관련
+private:
+    bool _debuffEnable = false;
+    float _slowRate = 0.f;
+    float _timeTickforDebuff = 0.f;
+    float _debuffDuration = 0.f;
+
+public:
+    void SetSlowDebuff(float slowRate, float duration);
 };
 

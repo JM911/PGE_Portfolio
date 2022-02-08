@@ -39,19 +39,37 @@ void Enemy::Update()
 
 	float fElapsedTime = _pEngine->GetElapsedTime();
 
+	float curSpeed = _speed;
+
+	// 디버프 여부 확인
+	if (_debuffEnable)
+	{
+		_timeTickforDebuff += fElapsedTime;
+		curSpeed *= (1 - _slowRate);
+		_color = olc::DARK_RED;
+
+		if (_timeTickforDebuff > _debuffDuration)
+		{
+			_debuffEnable = false;
+			_timeTickforDebuff = 0.f;
+			_color = olc::RED;
+		}
+	}
+
+	// 이동
 	switch (_dir)
 	{
 	case DIRECTION::RIGHT:
-		_x += _speed * fElapsedTime;
+		_x += curSpeed * fElapsedTime;
 		break;
 	case DIRECTION::DOWN:
-		_y += _speed * fElapsedTime;
+		_y += curSpeed * fElapsedTime;
 		break;
 	case DIRECTION::LEFT:
-		_x -= _speed * fElapsedTime;
+		_x -= curSpeed * fElapsedTime;
 		break;
 	case DIRECTION::UP:
-		_y -= _speed * fElapsedTime;
+		_y -= curSpeed * fElapsedTime;
 		break;
 	}
 }
@@ -88,13 +106,13 @@ void Enemy::ChangeDirAt(int gridX, int gridY, DIRECTION dir)
 	{
 	case DIRECTION::UP:
 	case DIRECTION::DOWN:
-		xDiff = 0.2f;
+		xDiff = 0.3f;
 		yDiff = 1.0f;
 		break;
 	case DIRECTION::LEFT:
 	case DIRECTION::RIGHT:
 		xDiff = 1.0f;
-		yDiff = 0.2f;
+		yDiff = 0.3f;
 		break;
 	}
 
@@ -112,4 +130,11 @@ void Enemy::BeDamaged(int att)
 		_alive = false;
 		_pScene->GetReward(_reward);
 	}
+}
+
+void Enemy::SetSlowDebuff(float slowRate, float duration)
+{
+	_debuffEnable = true;
+	_slowRate = slowRate;
+	_debuffDuration = duration;
 }

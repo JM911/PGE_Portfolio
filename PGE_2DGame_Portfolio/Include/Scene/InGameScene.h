@@ -72,5 +72,12 @@ protected:
     //// 추가
     //bool IsPrevTargetRemaining(int gridX, int gridY);
     //void SetTargetHelper(int gridX, int gridY, Enemy* target);
+
+
+    // 디버프 타워용
+protected:
+    vector<pair<int, int>> _vecDTGrid;
+
+    void DebuffAttack();
 };
 

@@ -4,6 +4,7 @@
 #include "../Object/Map.h"
 #include "../Object/NormalTower.h"
 #include "../Object/BurstTower.h"
+#include "../Object/DebuffTower.h"
 #include "../Object/Enemy.h"
 #include "../Object/Wave.h"
 
@@ -112,8 +113,8 @@ void StageTest::SelectTypeInput()
 		_towerType = TOWER_TYPE::NORMAL;
 	if (_pEngine->GetKey(olc::Key::K2).bPressed)
 		_towerType = TOWER_TYPE::BURST;
-	//if (_pEngine->GetKey(olc::Key::K3).bPressed)
-	//	_towerType = TOWER_TYPE::DEBUFF;
+	if (_pEngine->GetKey(olc::Key::K3).bPressed)
+		_towerType = TOWER_TYPE::DEBUFF;
 }
 
 void StageTest::TowerSetting(int gridX, int gridY)
@@ -127,7 +128,7 @@ void StageTest::TowerSetting(int gridX, int gridY)
 		static_cast<BurstTower*>(_pTower[gridY][gridX])->Setting(5, 60.f, 1.5f, olc::YELLOW);
 		break;
 	case TOWER_TYPE::DEBUFF:
-		//_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::YELLOW);
+		static_cast<DebuffTower*>(_pTower[gridY][gridX])->Setting(60.f, 2.f, olc::BLUE);
 		break;
 	case TOWER_TYPE::MORTAR:
 		//_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::BLUE);
@@ -151,10 +152,10 @@ void StageTest::TowerTypeUIRender()
 	case TOWER_TYPE::NORMAL:
 		_pEngine->DrawRect(175, 283, 50, 50);
 		break;
-	case TOWER_TYPE::DEBUFF:
+	case TOWER_TYPE::BURST:
 		_pEngine->DrawRect(275, 283, 50, 50);
 		break;
-	case TOWER_TYPE::MORTAR:
+	case TOWER_TYPE::DEBUFF:
 		_pEngine->DrawRect(375, 283, 50, 50);
 		break;
 	}

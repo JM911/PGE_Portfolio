@@ -33,7 +33,7 @@ void BurstTower::Update()
 	Tower::Update();
 
 	// 공격 업데이트
-	TimeTickInc();
+	//TimeTickInc();
 	Attack();
 
 	for (int i = 0; i < _maxBurstNum; i++)
@@ -61,15 +61,6 @@ void BurstTower::Render()
 		if (_pBullet[i])
 			_pBullet[i]->Render();
 	}
-}
-
-void BurstTower::TimeTickInc()
-{
-	// 너무 커지면 증가 안하도록
-	if (_timeTick > 10000.f)
-		return;
-
-	_timeTick += _pEngine->GetElapsedTime();
 }
 
 void BurstTower::CreateBullet()

@@ -4,6 +4,7 @@
 #include "../Object/Map.h"
 #include "../Object/NormalTower.h"
 #include "../Object/BurstTower.h"
+#include "../Object/DebuffTower.h"
 #include "../Object/Enemy.h"
 #include "../Object/Wave.h"
 
@@ -68,6 +69,9 @@ void InGameScene::Update()
 
 	TowerTargetUpdate();
 
+	// 디버프 타워 공격 업데이트
+	DebuffAttack();
+
 
 	// 기타 UI 관련
 	_curTime += _pEngine->GetElapsedTime();
@@ -114,17 +118,32 @@ void InGameScene::Render()
 	_pEngine->FillCircle(_curX, _curY, 5, olc::BLACK);
 
 	// 시간
-	string strTime = "TIME: ";
-	strTime += to_string((int)_curTime);
+	string strTime = "TIME ";
+	int curMin = (int)_curTime / 60;
+	int curSec = (int)_curTime % 60;
+
+	string strMin = "";
+	if (curMin < 10)
+		strMin = "0";
+	strMin += to_string(curMin);
+	
+	string strSec = "";
+	if (curSec < 10)
+		strSec = "0";
+	strSec += to_string(curSec);
+
+	strTime += strMin + ":" + strSec;
+
+	//strTime += to_string((int)_curTime);
 	_pEngine->DrawString(50, 50, strTime);
 
 	// 목숨
-	string strLife = "LIFE: ";
+	string strLife = "LIFE ";
 	strLife += to_string(_playerLife);
 	_pEngine->DrawString(50, 100, strLife);
 
 	// 골드
-	string strGold = "GOLD: ";
+	string strGold = "GOLD ";
 	strGold += to_string(_playerGold);
 	_pEngine->DrawString(50, 150, strGold);
 }
@@ -182,6 +201,9 @@ void InGameScene::TowerCreate(int gridX, int gridY, TOWER_TYPE type)
 		_pTower[gridY][gridX]->Create(gridX, gridY);
 		break;
 	case TOWER_TYPE::DEBUFF:
+		_pTower[gridY][gridX] = new DebuffTower(_pEngine);
+		_pTower[gridY][gridX]->Create(gridX, gridY);
+		_vecDTGrid.push_back({ gridX, gridY });
 		break;
 	case TOWER_TYPE::MORTAR:
 		break;
@@ -234,35 +256,38 @@ void InGameScene::TowerTargetUpdate()
 	}
 }
 
-//bool InGameScene::IsPrevTargetRemaining(int gridX, int gridY)
-//{
-//	// TODO: 채우기
-//	switch (_pTower[gridY][gridX]->GetType())
-//	{
-//	case TOWER_TYPE::NORMAL:
-//		return (static_cast<NormalTower*>(_pTower[gridY][gridX])->GetTarget()
-//			&& static_cast<NormalTower*>(_pTower[gridY][gridX])->CheckTargetInRange());
-//	case TOWER_TYPE::BURST:
-//		return (static_cast<BurstTower*>(_pTower[gridY][gridX])->GetTarget()
-//			&& static_cast<BurstTower*>(_pTower[gridY][gridX])->CheckTargetInRange());
-//	case TOWER_TYPE::DEBUFF:
-//	case TOWER_TYPE::MORTAR:
-//	}
-//
-//	return false;
-//}
-//
-//void InGameScene::SetTargetHelper(int gridX, int gridY, Enemy* target)
-//{
-//	switch (_pTower[gridY][gridX]->GetType())
-//	{
-//	case TOWER_TYPE::NORMAL:
-//		static_cast<NormalTower*>(_pTower[gridY][gridX])->SetTarget(target);
-//		break;
-//	case TOWER_TYPE::BURST:
-//		static_cast<BurstTower*>(_pTower[gridY][gridX])->SetTarget(target);
-//		break;
-//	case TOWER_TYPE::DEBUFF:
-//	case TOWER_TYPE::MORTAR:
-//	}
-//}
+void InGameScene::DebuffAttack()
+{
+	for (auto curGridPos : _vecDTGrid)
+	{
+		int curGridX = curGridPos.first;
+		int curGridY = curGridPos.second;
+
+		DebuffTower* pCurTower = static_cast<DebuffTower*>(_pTower[curGridY][curGridX]);
+
+		if (!pCurTower->GetAttEnable())
+			continue;
+
+		for (int k = 0; k < MAX_WAVE_NUM; k++)		// 여러 웨이브가 맵에 있어도 모두 체크하도록
+		{
+			if (!_pWave[k])
+				continue;
+
+			int enemyNum = _pWave[k]->GetEnemyNum();
+			Enemy** pWaveEnemyArr = _pWave[k]->GetEnemyArr();
+
+			for (int l = 0; l < enemyNum; l++)
+			{
+				if (!pWaveEnemyArr[l] || !pWaveEnemyArr[l]->GetAlive())
+					continue;
+
+				float waveX = pCurTower->GetX() - pWaveEnemyArr[l]->GetX();
+				float waveY = pCurTower->GetY() - pWaveEnemyArr[l]->GetY();
+				float waveDist = sqrtf(waveX * waveX + waveY * waveY);
+
+				if (pCurTower->GetRadius() > waveDist)
+					pWaveEnemyArr[l]->SetSlowDebuff(pCurTower->GetSlowRate(), pCurTower->GetDuration());
+			}
+		}
+	}
+}

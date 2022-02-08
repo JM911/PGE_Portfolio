@@ -22,7 +22,6 @@ protected:
     bool _enable = false;
     int _gridX = 0;
     int _gridY = 0;
-    float _range = 0.f;
 
     TOWER_TYPE _type = TOWER_TYPE::NORMAL;
 
@@ -31,31 +30,33 @@ protected:
     // Get
 public:
     bool GetEnable() const { return _enable; }
-    //int GetGridX() const { return _gridX; }
-    //int GetGridY() const { return _gridY; }
-    float GetRange() const { return _range; }
     TOWER_TYPE GetType() const { return _type; }
 
     // Set
 public:
     void SetEnable(bool enable) { _enable = enable; }
-    //void SetGridX(int gridX) { _gridX = gridX; }
-    //void SetGridY(int gridY) { _gridY = gridY; }
-    void SetRange(float range) { _range = range; }
 
 
 
     // 공격 메커니즘 (공용)
 protected:
     Enemy* _pTarget = nullptr;
+    float _range = 0.f;
+
+    float _timeTick = 0.f;
+    float _interval = 100.f;
 
     // Get
 public:
     Enemy* GetTarget() const { return _pTarget; }
+    float GetRange() const { return _range; }
 
     // Set
 public:
     void SetTarget(Enemy* pTarget) { _pTarget = pTarget; }
+    void SetRange(float range) { _range = range; }
+
+    void TimeTickInc();
     bool CheckTargetInRange();
 };
 

@@ -30,6 +30,8 @@ void Tower::Update()
 {
 	if (!_enable)
 		return;
+
+	TimeTickInc();
 }
 
 void Tower::Render()
@@ -38,6 +40,17 @@ void Tower::Render()
 		return;
 
 	_pEngine->FillCircle((int)_x, (int)_y, _size, _color);
+}
+
+
+
+void Tower::TimeTickInc()
+{
+	// 너무 커지면 증가 안하도록
+	if (_timeTick > 10000.f)
+		return;
+
+	_timeTick += _pEngine->GetElapsedTime();
 }
 
 bool Tower::CheckTargetInRange()

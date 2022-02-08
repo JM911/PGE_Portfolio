@@ -9,7 +9,7 @@ public:
     virtual ~BurstTower();
 
 public:
-    void Setting(int maxBurstNum, float range, float interval, olc::Pixel color = olc::WHITE);
+    void Setting(int maxBurstNum, float range, float interval, olc::Pixel color = olc::YELLOW);
     virtual void Update() override;
     virtual void Render() override;
 
@@ -23,9 +23,7 @@ private:
 
     int _curIdx = 0;
     int _maxBurstNum = 0;           // 연사 1주기 총알 개수
-    float _timeTick = 0.f;
     float _burstInterval = 0.1f;    // 연사 중 총알 발사 간격
-    float _interval = 100.f;        // 연사 1주기 간격
 
     // Get
 public:
@@ -36,7 +34,6 @@ public:
     void SetInterval(float interval) { _interval = interval; }
 
 public:
-    void TimeTickInc();
     void CreateBullet();
 
     void Attack();

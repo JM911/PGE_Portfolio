@@ -21,9 +21,6 @@ public:
 private:
     Bullet* _pBullet = nullptr;
 
-    float _timeTick = 0.f;
-    float _interval = 100.f;
-
     // Get
 public:
     //Bullet* GetBullet() const { return _pBullet; }
@@ -34,7 +31,6 @@ public:
     void SetInterval(float interval) { _interval = interval; }
 
 public:
-    void TimeTickInc();
     void CreateBullet();
 
     void Attack();
