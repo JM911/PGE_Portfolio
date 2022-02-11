@@ -1,6 +1,7 @@
 #include "Core.h"
 #include "Scene/TestScene.h"
 #include "Scene/StageTest.h"
+#include "Scene/StartScene.h"
 
 Core::Core()
 {
@@ -15,8 +16,8 @@ Core::~Core()
 bool Core::OnUserCreate()
 {
 	// Called once at the start, so create things here
-	_pScene = new StageTest(this);
-	((StageTest*)_pScene)->Create();
+	_pScene = new StartScene(this);
+	//((StartScene*)_pScene)->Create();
 
 	return true;
 }
@@ -29,13 +30,22 @@ bool Core::OnUserUpdate(float fElapsedTime)
 	_pScene->Update();
 	_pScene->Render();
 
+	// ¥Ÿ¿Ω æ¿ √º≈©
+	if (_pNextScene)
+	{
+		SetScene(_pNextScene);
+		_pNextScene = nullptr;
+	}
+
+	if (_bExit)
+		return false;
+	
 	return true;
 }
 
 void Core::SetScene(Scene* pScene)
 {
-	if (_pScene)
-		SAFE_DELETE(_pScene);
+	SAFE_DELETE(_pScene);
 
 	_pScene = pScene;
 }

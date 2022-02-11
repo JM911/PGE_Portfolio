@@ -8,6 +8,8 @@
 #include "../Object/Enemy.h"
 #include "../Object/Wave.h"
 
+#include "GameOver.h"
+
 int InGameScene::_playerLife = 20;
 
 InGameScene::InGameScene(Core* pEngine)	:
@@ -72,6 +74,18 @@ void InGameScene::Update()
 	// 디버프 타워 공격 업데이트
 	DebuffAttack();
 
+	// 스테이지 실패(게임오버)
+	if (_playerLife <= 0)
+	{
+		_timeTickforGameOver += _pEngine->GetElapsedTime();
+
+		if (_timeTickforGameOver > 5.f)
+		{
+			GameOver* pNextScene = new GameOver(_pEngine);
+			//pNextScene->Create();
+			_pEngine->SetNextScene(pNextScene);
+		}
+	}
 
 	// 기타 UI 관련
 	_curTime += _pEngine->GetElapsedTime();
@@ -108,6 +122,20 @@ void InGameScene::Render()
 	}
 
 	// TODO: 총알 Render 마지막에 따로 하기 (제일 위에 출력되도록)
+
+
+
+	// 스테이지 클리어
+	if (_pWave[_lastWaveIdx]->IsAllEnemyDead())
+	{
+		_pEngine->DrawString(150, 120, "STAGE\nCLEAR", olc::BLACK, 10);
+	}
+
+	// 게임 오버
+	if (_playerLife <= 0)
+	{
+		_pEngine->DrawString(150, 120, "GAME\nOVER", olc::BLACK, 10);
+	}
 
 
 	/***  UI  ***/

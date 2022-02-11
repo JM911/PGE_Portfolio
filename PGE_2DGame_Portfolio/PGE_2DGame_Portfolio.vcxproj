@@ -34,9 +34,15 @@
     <ClInclude Include="Include\Object\Wave.h" />
     <ClInclude Include="Include\olcPixelGameEngine.h" />
     <ClInclude Include="Include\pch.h" />
+    <ClInclude Include="Include\Scene\GameClear.h" />
+    <ClInclude Include="Include\Scene\GameOver.h" />
     <ClInclude Include="Include\Scene\InGameScene.h" />
     <ClInclude Include="Include\Scene\Scene.h" />
     <ClInclude Include="Include\Scene\StageTest.h" />
+    <ClInclude Include="Include\Scene\Stage_1.h" />
+    <ClInclude Include="Include\Scene\Stage_2.h" />
+    <ClInclude Include="Include\Scene\Stage_3.h" />
+    <ClInclude Include="Include\Scene\StartScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\Core.cpp" />
@@ -52,9 +58,15 @@
     <ClCompile Include="Include\Object\Tile.cpp" />
     <ClCompile Include="Include\Object\Tower.cpp" />
     <ClCompile Include="Include\Object\Wave.cpp" />
+    <ClCompile Include="Include\Scene\GameClear.cpp" />
+    <ClCompile Include="Include\Scene\GameOver.cpp" />
     <ClCompile Include="Include\Scene\InGameScene.cpp" />
     <ClCompile Include="Include\Scene\Scene.cpp" />
     <ClCompile Include="Include\Scene\StageTest.cpp" />
+    <ClCompile Include="Include\Scene\Stage_1.cpp" />
+    <ClCompile Include="Include\Scene\Stage_2.cpp" />
+    <ClCompile Include="Include\Scene\Stage_3.cpp" />
+    <ClCompile Include="Include\Scene\StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="memo.txt" />

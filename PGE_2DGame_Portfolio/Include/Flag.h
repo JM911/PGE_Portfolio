@@ -35,3 +35,9 @@ enum class TOWER_TYPE
 
 	END,
 };
+
+enum SCENE_MENU
+{
+	START,
+	EXIT,
+};

@@ -98,12 +98,16 @@ void Wave::SpawnEnemy()
 {
 	float elapsedTime = _pEngine->GetElapsedTime();
 
+	if (_timeTickforStart < _spawnStartTime + 10.f)
+	{
+		_timeTickforStart += elapsedTime;
+	}
+
 	if (_curEnemyIdx >= _enemyNum)
 		return;
 
 	if (_timeTickforStart < _spawnStartTime)
 	{
-		_timeTickforStart += elapsedTime;
 		return;
 	}
 
@@ -147,6 +151,10 @@ int Wave::CheckReachedEnemy(int finalGridX, int finalGridY)
 
 bool Wave::IsAllEnemyDead()
 {
+	// 아직 시작도 안했으면 false 반환
+	if (_timeTickforStart < _spawnStartTime + 2.f)
+		return false;
+
 	for (int i = 0; i < _enemyNum; i++)
 	{
 		if (_pEnemy[i]->GetAlive())		// 하나라도 살아있으면 false 반환

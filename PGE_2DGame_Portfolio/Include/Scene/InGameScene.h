@@ -50,6 +50,11 @@ protected:
 
     int _curWaveIdx = 0;    // 필요 없을듯? (어차피 update, render에도 모든 웨이브를 실행)
 
+    int _lastWaveIdx = MAX_WAVE_NUM;
+    float _timeTickforNextStage = 0.f;
+
+    float _timeTickforGameOver = 0.f;
+
 protected:
     virtual bool MapCreate() = 0;       // 맵 제작 (하드 코딩)
     virtual bool WaveCreate() = 0;      // 웨이브 제작 (하드 코딩)
@@ -68,10 +73,6 @@ protected:
     virtual void TowerSetting(int gridX, int gridY) = 0;    // 타입별 세부 수치 설정(하드 코딩)
     // => 만약 모든 맵에서 타워 종류를 통일한다면 다른 방법으로 리팩토링 고려
 
-
-    //// 추가
-    //bool IsPrevTargetRemaining(int gridX, int gridY);
-    //void SetTargetHelper(int gridX, int gridY, Enemy* target);
 
 
     // 디버프 타워용

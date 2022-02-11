@@ -29,6 +29,19 @@ bool StageTest::Create()
 void StageTest::Update()
 {
 	InGameScene::Update();
+	
+	// 스테이지 클리어
+	if (_pWave[_lastWaveIdx]->IsAllEnemyDead())
+	{
+		_timeTickforNextStage += _pEngine->GetElapsedTime();
+
+		if (_timeTickforNextStage > 5.f)
+		{
+			StageTest* pNextScene = new StageTest(_pEngine);
+			pNextScene->Create();
+			_pEngine->SetNextScene(pNextScene);
+		}
+	}
 }
 
 void StageTest::Render()
@@ -74,6 +87,20 @@ bool StageTest::WaveCreate()
 	_pWave[0] = new Wave(_pEngine, this);
 	_pWave[0]->Create(10, 5.f, 0.5f);
 	_pWave[0]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 5, 1, 30.f, 50);
+
+	_pWave[1] = new Wave(_pEngine, this);
+	_pWave[1]->Create(10, 20.f, 0.5f);
+	_pWave[1]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 10, 1, 30.f, 50);
+
+	_pWave[2] = new Wave(_pEngine, this);
+	_pWave[2]->Create(10, 35.f, 0.5f);
+	_pWave[2]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 15, 1, 30.f, 50);
+
+	_pWave[3] = new Wave(_pEngine, this);
+	_pWave[3]->Create(1, 50.f, 0.5f);
+	_pWave[3]->EnemyCreate(_spawnGridX, _spawnGridY, 8, 200, 1, 20.f, 50);
+
+	_lastWaveIdx = 0;
 
 	return true;
 }

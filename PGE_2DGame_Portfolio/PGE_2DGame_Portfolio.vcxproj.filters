@@ -92,6 +92,24 @@
     <ClInclude Include="Include\Object\BurstTower.h">
       <Filter>소스 파일\Object\Tower</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Scene\StartScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\GameOver.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\Stage_1.h">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\Stage_2.h">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\Stage_3.h">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\GameClear.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Include\main.cpp">
@@ -141,6 +159,24 @@
     </ClCompile>
     <ClCompile Include="Include\Object\BurstTower.cpp">
       <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\StartScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\GameOver.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\Stage_1.cpp">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\Stage_2.cpp">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\Stage_3.cpp">
+      <Filter>소스 파일\Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Scene\GameClear.cpp">
+      <Filter>소스 파일\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
