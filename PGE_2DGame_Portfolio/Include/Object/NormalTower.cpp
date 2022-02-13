@@ -7,6 +7,7 @@ NormalTower::NormalTower(Core* pEngine)	:
 	Tower(pEngine)
 {
 	_type = TOWER_TYPE::NORMAL;
+	_ATT = 3;
 }
 
 NormalTower::~NormalTower()
@@ -62,7 +63,7 @@ void NormalTower::CreateBullet()
 
 	_pBullet = new Bullet(_pEngine);
 	_pBullet->Create(_x, _y, _pTarget);
-	_pBullet->Setting(2, 150.f, 1);		// TODO: 만약 레벨 시스템을 쓴다면 레벨별로 다른 공격력
+	_pBullet->Setting(2, 150.f, _ATT);		// TODO: 만약 레벨 시스템을 쓴다면 레벨별로 다른 공격력
 }
 
 void NormalTower::Attack()

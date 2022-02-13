@@ -25,5 +25,5 @@ void GameClear::Render()
 	// Clear
 	_pEngine->Clear(olc::BLACK);
 
-	_pEngine->DrawString(135, 100, "GAME CLEAR", olc::WHITE, 3);
+	_pEngine->DrawString(120, 120, "GAME CLEAR", olc::WHITE, 5);
 }

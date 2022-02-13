@@ -33,7 +33,7 @@ void Stage_3::Update()
 	InGameScene::Update();
 
 	// 스테이지 클리어
-	if (_pWave[_lastWaveIdx]->IsAllEnemyDead())
+	if (_pWave[_lastWaveIdx]->IsAllEnemyDead() && _playerLife > 0)
 	{
 		_timeTickforNextStage += _pEngine->GetElapsedTime();
 
@@ -65,11 +65,11 @@ bool Stage_3::MapCreate()
 		3, 3, 3, 3, 3,	3, 3, 3, 3, 3,	3, 3,
 		3, 1, 1, 1, 1,	1, 1, 1, 1, 1,	1, 3,
 		3, 2, 2, 2, 2,	2, 2, 2, 2, 2,	1, 3,
-		3, 2, 2, 2, 2,	2, 2, 2, 2, 2,	1, 3,
-		3, 1, 1, 1, 1,	1, 1, 1, 1, 1,	1, 3,
+		3, 1, 1, 1, 1,	1, 1, 1, 1, 2,	1, 3,
+		3, 1, 2, 2, 2,	2, 2, 2, 1, 2,	1, 3,
 
-		3, 1, 2, 2, 2,	2, 2, 2, 2, 2,	2, 3,
-		3, 1, 2, 2, 2,	2, 2, 2, 2, 2,	2, 3,
+		3, 1, 2, 1, 1,	1, 1, 1, 1, 2,	1, 3,
+		3, 1, 2, 2, 2,	2, 2, 2, 2, 2,	1, 3,
 		3, 1, 1, 1, 1,	1, 1, 1, 1, 1,	1, 3,
 		3, 3, 3, 3, 3,	3, 3, 3, 3, 3,	3, 3,
 	};
@@ -81,8 +81,8 @@ bool Stage_3::MapCreate()
 	_spawnGridY = 1;
 
 	// finalGrid 설정
-	_finalGridX = 10;
-	_finalGridY = 7;
+	_finalGridX = 3;
+	_finalGridY = 5;
 
 	return true;
 }
@@ -118,78 +118,11 @@ void Stage_3::WaveChangeDir()
 			continue;
 
 		_pWave[i]->ChangeWaveDirAt(10, 1, DIRECTION::DOWN);
-		_pWave[i]->ChangeWaveDirAt(10, 4, DIRECTION::LEFT);
-		_pWave[i]->ChangeWaveDirAt(1, 4, DIRECTION::DOWN);
-		_pWave[i]->ChangeWaveDirAt(1, 7, DIRECTION::RIGHT);
-	}
-}
-
-int Stage_3::Cost(TOWER_TYPE type)
-{
-	switch (type)
-	{
-	case TOWER_TYPE::NORMAL:
-		return 100;
-	case TOWER_TYPE::BURST:
-		return 150;
-	case TOWER_TYPE::DEBUFF:
-		return 200;
-	default:
-		return 0;
-	}
-}
-
-void Stage_3::SelectTypeInput()
-{
-	if (_pEngine->GetKey(olc::Key::K1).bPressed)
-		_towerType = TOWER_TYPE::NORMAL;
-	if (_pEngine->GetKey(olc::Key::K2).bPressed)
-		_towerType = TOWER_TYPE::BURST;
-	if (_pEngine->GetKey(olc::Key::K3).bPressed)
-		_towerType = TOWER_TYPE::DEBUFF;
-}
-
-void Stage_3::TowerSetting(int gridX, int gridY)
-{
-	switch (_towerType)
-	{
-	case TOWER_TYPE::NORMAL:
-		static_cast<NormalTower*>(_pTower[gridY][gridX])->Setting(60.f, 2.f, olc::WHITE);
-		break;
-	case TOWER_TYPE::BURST:
-		static_cast<BurstTower*>(_pTower[gridY][gridX])->Setting(5, 60.f, 1.5f, olc::YELLOW);
-		break;
-	case TOWER_TYPE::DEBUFF:
-		static_cast<DebuffTower*>(_pTower[gridY][gridX])->Setting(60.f, 2.f, olc::BLUE);
-		break;
-	case TOWER_TYPE::MORTAR:
-		//_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::BLUE);
-		break;
-	}
-}
-
-void Stage_3::TowerTypeUIRender()
-{
-	_pEngine->FillCircle(200, 300, TOWER_SIZE, olc::WHITE);
-	_pEngine->DrawString(188, 320, "100");
-
-	_pEngine->FillCircle(300, 300, TOWER_SIZE, olc::YELLOW);
-	_pEngine->DrawString(288, 320, "150");
-
-	_pEngine->FillCircle(400, 300, TOWER_SIZE, olc::BLUE);
-	_pEngine->DrawString(388, 320, "200");
-
-	switch (_towerType)
-	{
-	case TOWER_TYPE::NORMAL:
-		_pEngine->DrawRect(175, 283, 50, 50);
-		break;
-	case TOWER_TYPE::BURST:
-		_pEngine->DrawRect(275, 283, 50, 50);
-		break;
-	case TOWER_TYPE::DEBUFF:
-		_pEngine->DrawRect(375, 283, 50, 50);
-		break;
+		_pWave[i]->ChangeWaveDirAt(10, 7, DIRECTION::LEFT);
+		_pWave[i]->ChangeWaveDirAt(1, 7, DIRECTION::UP);
+		_pWave[i]->ChangeWaveDirAt(1, 3, DIRECTION::RIGHT);
+		_pWave[i]->ChangeWaveDirAt(8, 3, DIRECTION::DOWN);
+		_pWave[i]->ChangeWaveDirAt(8, 5, DIRECTION::LEFT);
 	}
 }
 

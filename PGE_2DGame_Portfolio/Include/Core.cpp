@@ -1,7 +1,7 @@
 #include "Core.h"
-#include "Scene/TestScene.h"
-#include "Scene/StageTest.h"
 #include "Scene/StartScene.h"
+
+//#include "Scene/GameClear.h"
 
 Core::Core()
 {
@@ -17,7 +17,7 @@ bool Core::OnUserCreate()
 {
 	// Called once at the start, so create things here
 	_pScene = new StartScene(this);
-	//((StartScene*)_pScene)->Create();
+	//((Stage_3*)_pScene)->Create();
 
 	return true;
 }

@@ -126,7 +126,7 @@ void InGameScene::Render()
 
 
 	// 스테이지 클리어
-	if (_pWave[_lastWaveIdx]->IsAllEnemyDead())
+	if (_pWave[_lastWaveIdx]->IsAllEnemyDead() && _playerLife > 0)
 	{
 		_pEngine->DrawString(150, 120, "STAGE\nCLEAR", olc::BLACK, 10);
 	}
@@ -283,6 +283,77 @@ void InGameScene::TowerTargetUpdate()
 		}
 	}
 }
+
+
+int InGameScene::Cost(TOWER_TYPE type)
+{
+	switch (type)
+	{
+	case TOWER_TYPE::NORMAL:
+		return 100;
+	case TOWER_TYPE::BURST:
+		return 150;
+	case TOWER_TYPE::DEBUFF:
+		return 200;
+	default:
+		return 0;
+	}
+}
+
+void InGameScene::SelectTypeInput()
+{
+	if (_pEngine->GetKey(olc::Key::K1).bPressed)
+		_towerType = TOWER_TYPE::NORMAL;
+	if (_pEngine->GetKey(olc::Key::K2).bPressed)
+		_towerType = TOWER_TYPE::BURST;
+	if (_pEngine->GetKey(olc::Key::K3).bPressed)
+		_towerType = TOWER_TYPE::DEBUFF;
+}
+
+void InGameScene::TowerSetting(int gridX, int gridY)
+{
+	switch (_towerType)
+	{
+	case TOWER_TYPE::NORMAL:
+		static_cast<NormalTower*>(_pTower[gridY][gridX])->Setting(60.f, 2.f, olc::WHITE);
+		break;
+	case TOWER_TYPE::BURST:
+		static_cast<BurstTower*>(_pTower[gridY][gridX])->Setting(5, 60.f, 1.5f, olc::YELLOW);
+		break;
+	case TOWER_TYPE::DEBUFF:
+		static_cast<DebuffTower*>(_pTower[gridY][gridX])->Setting(60.f, 2.f, olc::BLUE);
+		break;
+	case TOWER_TYPE::MORTAR:
+		//_pTower[gridY][gridX]->Setting(TOWER_SIZE, 60.f, 2.f, olc::BLUE);
+		break;
+	}
+}
+
+void InGameScene::TowerTypeUIRender()
+{
+	_pEngine->FillCircle(200, 300, TOWER_SIZE, olc::WHITE);
+	_pEngine->DrawString(188, 320, "100");
+
+	_pEngine->FillCircle(300, 300, TOWER_SIZE, olc::YELLOW);
+	_pEngine->DrawString(288, 320, "150");
+
+	_pEngine->FillCircle(400, 300, TOWER_SIZE, olc::BLUE);
+	_pEngine->DrawString(388, 320, "200");
+
+	switch (_towerType)
+	{
+	case TOWER_TYPE::NORMAL:
+		_pEngine->DrawRect(175, 283, 50, 50);
+		break;
+	case TOWER_TYPE::BURST:
+		_pEngine->DrawRect(275, 283, 50, 50);
+		break;
+	case TOWER_TYPE::DEBUFF:
+		_pEngine->DrawRect(375, 283, 50, 50);
+		break;
+	}
+}
+
 
 void InGameScene::DebuffAttack()
 {

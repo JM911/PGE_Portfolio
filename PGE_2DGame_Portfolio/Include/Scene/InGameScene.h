@@ -64,15 +64,15 @@ protected:
 
     void TowerTargetUpdate();
 
+
     // 타워 건설 관련
 protected:
     TOWER_TYPE _towerType = TOWER_TYPE::NORMAL;
 
-    virtual int Cost(TOWER_TYPE type) = 0;  // 타워 타입별 가격 설정(하드 코딩)
-    virtual void SelectTypeInput() = 0;     // 타입별 입력 키 맵핑(하드 코딩)
-    virtual void TowerSetting(int gridX, int gridY) = 0;    // 타입별 세부 수치 설정(하드 코딩)
-    // => 만약 모든 맵에서 타워 종류를 통일한다면 다른 방법으로 리팩토링 고려
-
+    virtual int Cost(TOWER_TYPE type);                  // 타워 타입별 가격 설정(하드 코딩)
+    virtual void SelectTypeInput();                     // 타입별 입력 키 맵핑(하드 코딩)
+    virtual void TowerSetting(int gridX, int gridY);    // 타입별 세부 수치 설정(하드 코딩)
+    virtual void TowerTypeUIRender();                   // 타워 UI
 
 
     // 디버프 타워용

@@ -20,6 +20,7 @@ public:
 
 private:
     Bullet* _pBullet = nullptr;
+    int _ATT = 0;
 
     // Get
 public:
@@ -34,5 +35,6 @@ public:
     void CreateBullet();
 
     void Attack();
+    void SetAttack(int att) { _ATT = att; }
 };
 

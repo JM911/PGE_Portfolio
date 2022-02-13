@@ -32,5 +32,5 @@ void GameOver::Render()
 	// Clear
 	_pEngine->Clear(olc::BLACK);
 
-	_pEngine->DrawString(135, 100, "GAME OVER", olc::WHITE, 3);
+	_pEngine->DrawString(130, 120, "GAME OVER", olc::WHITE, 5);
 }
