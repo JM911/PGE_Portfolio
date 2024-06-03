@@ -62,8 +62,9 @@ public:
     void SetDir(DIRECTION dir) { _dir = dir; }
     void SetSpeed(float speed) { _speed = speed; }
 
-
-
+private:
+    float _epsX = 0.f;      // 생성위치와 타일 중앙의 차이값 (x좌표)
+    float _epsY = 0.f;      // 생성위치와 타일 중앙의 차이값 (y좌표)
 
 public:
     void ChangeDirAt(int gridX, int gridY, DIRECTION dir);
@@ -80,5 +81,7 @@ private:
 
 public:
     void SetSlowDebuff(float slowRate, float duration);
+
+
 };
 

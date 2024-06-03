@@ -13,7 +13,7 @@ public:
     virtual void Update() override;
     virtual void Render() override;
 
-
+    virtual void BulletRender() override;
 
 
     /* 공격 메커니즘 */
@@ -21,15 +21,6 @@ public:
 private:
     Bullet* _pBullet = nullptr;
     int _ATT = 0;
-
-    // Get
-public:
-    //Bullet* GetBullet() const { return _pBullet; }
-    float GetInterval() const { return _interval; }
-
-    // Set
-public:
-    void SetInterval(float interval) { _interval = interval; }
 
 public:
     void CreateBullet();

@@ -125,8 +125,10 @@ void Wave::SpawnEnemy()
 
 int Wave::CheckReachedEnemy(int finalGridX, int finalGridY)
 {
-	float finalX = float(MAP_POS_X + TILE_SIZE * finalGridX + TILE_SIZE / 2);
-	float finalY = float(MAP_POS_Y + TILE_SIZE * finalGridY + TILE_SIZE / 2);
+	float fTileSize = (float)TILE_SIZE;
+
+	float finalX = float(MAP_POS_X + fTileSize * finalGridX + fTileSize / 2);
+	float finalY = float(MAP_POS_Y + fTileSize * finalGridY + fTileSize / 2);
 
 	for (int i = 0; i < _enemyNum; i++)
 	{
@@ -135,7 +137,7 @@ int Wave::CheckReachedEnemy(int finalGridX, int finalGridY)
 
 		float enemyX = _pEnemy[i]->GetX();
 		float enemyY = _pEnemy[i]->GetY();
-		float eps = 0.5f;
+		float eps = fTileSize / 2;
 
 		if (enemyX < finalX - eps || enemyX > finalX + eps)
 			continue;

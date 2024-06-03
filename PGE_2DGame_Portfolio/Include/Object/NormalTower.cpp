@@ -48,6 +48,12 @@ void NormalTower::Render()
 		return;
 
 	Tower::Render();
+}
+
+void NormalTower::BulletRender()
+{
+	if (!_enable)
+		return;
 
 	// bullet Render
 	if (_pBullet)
@@ -71,7 +77,8 @@ void NormalTower::Attack()
 	if (!CheckTargetInRange())
 		return;
 
-	if (_timeTick < _interval || (_pBullet && _pBullet->GetEnable()))
+	if (_timeTick < _interval || 
+		(_pBullet && _pBullet->GetEnable()))
 		return;
 
 	_timeTick = 0.f;

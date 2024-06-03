@@ -13,7 +13,7 @@ public:
     virtual void Update() override;
     virtual void Render() override;
 
-
+    virtual void BulletRender() override;
 
 
     /* 공격 메커니즘 */

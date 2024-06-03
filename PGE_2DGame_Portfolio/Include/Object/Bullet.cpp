@@ -43,7 +43,7 @@ void Bullet::Update()
 
 	// Range Check & Die
 	float dist = sqrtf(_dirX * _dirX + _dirY * _dirY);
-	float eps = 0.25f;
+	float eps = 0.5f;
 	if (dist < eps)
 	{
 		_pTarget->BeDamaged(_ATT);

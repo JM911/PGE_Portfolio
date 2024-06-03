@@ -23,7 +23,7 @@ bool Stage_1::Create()
 {
 	MapCreate();
 	WaveCreate();
-	_playerGold = 1000;
+	_playerGold = 300;
 
 	// 1스테이지에만 체력 원상복구 (다시시작)
 	_playerLife = 20;
@@ -51,11 +51,18 @@ void Stage_1::Update()
 
 void Stage_1::Render()
 {
+	// 시작 알림
+	if (_timeTickforStageStart < 3.f)
+	{
+		_pEngine->Clear(olc::VERY_DARK_BLUE);
+		_pEngine->DrawString(72, 120, "STAGE 1", olc::WHITE, 9);
+		return;
+	}
+
 	InGameScene::Render();
-	TowerTypeUIRender();
 
 	// 스테이지 표시
-	_pEngine->DrawString(280, 20, "Stage 1");
+	_pEngine->DrawString(MAP_POS_X + 100, 15, "Stage 1", olc::WHITE, 2);
 }
 
 bool Stage_1::MapCreate()
@@ -93,22 +100,26 @@ bool Stage_1::MapCreate()
 bool Stage_1::WaveCreate()
 {
 	_pWave[0] = new Wave(_pEngine, this);
-	_pWave[0]->Create(10, 5.f, 0.5f);
-	_pWave[0]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 5, 1, 30.f, 50);
+	_pWave[0]->Create(5, 10.f, 0.5f);
+	_pWave[0]->EnemyCreate(_spawnGridX, _spawnGridY, 3, 3, 1, 30.f, 30, olc::Pixel(255, 150, 150));
 
 	_pWave[1] = new Wave(_pEngine, this);
 	_pWave[1]->Create(10, 20.f, 0.5f);
-	_pWave[1]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 10, 1, 30.f, 50);
+	_pWave[1]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 5, 1, 30.f, 50);
 
 	_pWave[2] = new Wave(_pEngine, this);
-	_pWave[2]->Create(10, 35.f, 0.5f);
-	_pWave[2]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 15, 1, 30.f, 50);
+	_pWave[2]->Create(10, 30.f, 0.5f);
+	_pWave[2]->EnemyCreate(_spawnGridX, _spawnGridY, 5, 10, 1, 30.f, 70, olc::DARK_RED);
 
 	_pWave[3] = new Wave(_pEngine, this);
-	_pWave[3]->Create(1, 50.f, 0.5f);
-	_pWave[3]->EnemyCreate(_spawnGridX, _spawnGridY, 8, 200, 1, 20.f, 50);
+	_pWave[3]->Create(5, 45.f, 1.f);
+	_pWave[3]->EnemyCreate(_spawnGridX, _spawnGridY, 7, 20, 3, 25.f, 100, olc::VERY_DARK_RED);
 
-	_lastWaveIdx = 3;
+	_pWave[4] = new Wave(_pEngine, this);
+	_pWave[4]->Create(1, 60.f, 0.5f);
+	_pWave[4]->EnemyCreate(_spawnGridX, _spawnGridY, 10, 200, 5, 20.f, 200, olc::VERY_DARK_GREY);
+
+	_lastWaveIdx = 4;
 
 	return true;
 }

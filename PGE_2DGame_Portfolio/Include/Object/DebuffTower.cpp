@@ -34,6 +34,12 @@ void DebuffTower::Render()
 		return;
 
 	Tower::Render();
+}
+
+void DebuffTower::BulletRender()
+{
+	if (!_enable)
+		return;
 
 	if (_attEnable)
 	{

@@ -54,6 +54,12 @@ void BurstTower::Render()
 		return;
 
 	Tower::Render();
+}
+
+void BurstTower::BulletRender()
+{
+	if (!_enable)
+		return;
 
 	// bullet Render
 	for (int i = 0; i < _maxBurstNum; i++)

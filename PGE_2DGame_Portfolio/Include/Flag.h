@@ -32,11 +32,13 @@ enum class TOWER_TYPE
 	BURST,
 	DEBUFF,
 	MORTAR,
+	SNIPE,
+	RESTLESS,
 
 	END,
 };
 
-enum SCENE_MENU
+enum class SCENE_MENU
 {
 	START,
 	EXIT,

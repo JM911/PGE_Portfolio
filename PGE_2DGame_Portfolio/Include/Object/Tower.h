@@ -16,6 +16,8 @@ public:
     virtual void Update() override;
     virtual void Render() override;
 
+    virtual void BulletRender() = 0;
+
 
     
 protected:
@@ -25,8 +27,6 @@ protected:
 
     TOWER_TYPE _type = TOWER_TYPE::NORMAL;
 
-    // TODO: 타겟(Enemy 포인터 타입) 변수 제작. (타겟 설정은 모든 타워와 모든 몹간의 거리를 계산해야 하므로 씬에서)
-    
     // Get
 public:
     bool GetEnable() const { return _enable; }
@@ -50,11 +50,13 @@ protected:
 public:
     Enemy* GetTarget() const { return _pTarget; }
     float GetRange() const { return _range; }
+    float GetInterval() const { return _interval; }
 
     // Set
 public:
     void SetTarget(Enemy* pTarget) { _pTarget = pTarget; }
     void SetRange(float range) { _range = range; }
+    void SetInterval(float interval) { _interval = interval; }
 
     void TimeTickInc();
     bool CheckTargetInRange();

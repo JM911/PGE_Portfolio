@@ -13,6 +13,9 @@ public:
 	virtual void Render() override;
 
 private:
-	SCENE_MENU _menu = START;
+	SCENE_MENU _menu = SCENE_MENU::START;
+
+	int _cursorX = 180;
+	int _cursorY = 202;
 };
 

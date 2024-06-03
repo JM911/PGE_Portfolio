@@ -75,10 +75,28 @@ protected:
     virtual void TowerTypeUIRender();                   // 타워 UI
 
 
-    // 디버프 타워용
+    // 범위 타워용
 protected:
     vector<pair<int, int>> _vecDTGrid;
+    vector<pair<int, int>> _vecMTGrid;
 
     void DebuffAttack();
+    void MortarAttack();
+
+
+    
+    // 기타 UI 렌더
+protected:
+    void TextUIRender();
+    void ControlUIRender();
+    void LifeVisulize();
+
+    std::unique_ptr<olc::Sprite> sprHeart;
+    std::unique_ptr<olc::Sprite> sprStar;
+
+
+    // 스테이지 알림
+protected:
+    float _timeTickforStageStart = 0.f;
 };
 

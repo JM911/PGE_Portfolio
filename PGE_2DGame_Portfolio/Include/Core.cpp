@@ -1,7 +1,8 @@
 #include "Core.h"
 #include "Scene/StartScene.h"
 
-//#include "Scene/GameClear.h"
+//#include "Scene/GameOver.h"
+#include "Scene/Stage_3.h"
 
 Core::Core()
 {
